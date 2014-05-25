@@ -33,7 +33,7 @@ belt_clamp();
 
 simonkuehling_x_carriage();
 
-base_length = 148;
+base_length = 135;
 rod_dist = 50;
 
 module simonkuehling_x_carriage() 
@@ -52,7 +52,7 @@ module simonkuehling_x_carriage()
 				translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness,base_length,2*body_wall_thickness], center=true);
 			}
 			// belt clamp support
-			translate([-(rod_dist/2+body_width/2-body_wall_thickness/2+10.5),0,body_wall_thickness]) cube([body_wall_thickness,((28-body_length/2)-belt_clamp_width/2),2*body_wall_thickness], center=true);
+			/*translate([-(rod_dist/2+body_width/2-body_wall_thickness/2+10.5),0,body_wall_thickness]) cube([body_wall_thickness,((28-body_length/2)-belt_clamp_width/2),2*body_wall_thickness], center=true);*/
 
 		}
 
@@ -63,9 +63,9 @@ module simonkuehling_x_carriage()
 		
 		// Extruder Mounting Holes
         for (i=[-1,1]) {
-            # translate([i*25, 0, 0]) cylinder(r=m4_nut_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+            # translate([i*25, 0, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
             for (j=[-1, 1]) {
-                # translate([i*25, j*28, 0]) cylinder(r=m4_nut_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+                # translate([i*25, j*28, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
             }
         }
 
@@ -196,13 +196,13 @@ module belt_clamp_holes()
 		translate([i*belt_clamp_hole_separation/2,0,0])
 		cylinder(r=m3_diameter/2,h=belt_clamp_height+2,center=true,$fn=8);
 	
-		rotate([90,0,0])
-		rotate(360/16)
-		cylinder(r=m3_diameter/2-0.3 /*tight*/ ,h=belt_clamp_width+2,center=true,$fn=8);
+		/*rotate([90,0,0])*/
+		/*rotate(360/16)*/
+		/*cylinder(r=m3_diameter/2-0.3 ,h=belt_clamp_width+2,center=true,$fn=8);*/
 
-		rotate([90,0,0]) 
-		translate([0,0,belt_clamp_width/2])
-		cylinder(r=m3_nut_diameter/2-0.3 /*tight*/ ,h=3.4,center=true,$fn=6);
+		/*rotate([90,0,0]) */
+		/*translate([0,0,belt_clamp_width/2])*/
+		/*cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);*/
 	}
 }
 
