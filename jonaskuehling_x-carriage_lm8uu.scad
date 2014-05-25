@@ -25,16 +25,30 @@ include <lm8uu-holder-slim.scad>
 belt_clamp_thickness=2; 
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 
-for (i=[-1,1])
-translate([0,i*(28),0])
-belt_clamp();
+/*for (i=[-1,1])*/
+/*translate([0,i*(28),0])*/
+/*belt_clamp();*/
 
 /*belt_clamp_channel();*/
 
-simonkuehling_x_carriage();
 
-base_length = 135;
+
+simonkuehling_x_carriage();
+% mount_plate();
+
+base_length = 137;
 rod_dist = 50;
+
+module mount_plate()
+{
+    rotate([180, 0, 0])
+    union()
+    {
+        cube([71, 97, 5], center = true);
+        translate([0, 29, -49]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
+        translate([0, -29, -49]) import("Budaschnozzle.stl");
+    }
+}
 
 module simonkuehling_x_carriage() 
 {
@@ -71,12 +85,12 @@ module simonkuehling_x_carriage()
 
 		// Hotend Holes
         for (i=[-1,1])
-		translate([0,28*i,-1])
+		translate([0,29*i,-1])
 		cylinder(r=21,h=lm8uu_support_thickness*2+2);
 
 		// Substract Belt Clamp Holes from base plate
 		for (i=[-1,1])
-		translate([-25-13.5-1,i*((28-body_length/2)-belt_clamp_width/2),0])
+		translate([-25-13.5-1,i*(29),0])
 		rotate(90*(i+1)+180) 
 		belt_clamp_holes();
 		
@@ -101,7 +115,7 @@ module simonkuehling_x_carriage()
 	difference()
 	{
 		for (i=[-1,1])
-		translate([-25-13.5-1,i*((28-body_length/2)-belt_clamp_width/2),0])
+		translate([-25-13.5-1,i*(29),0])
 		rotate(90*(i+1)+180) 
 		belt_clamp_socket ();
 
@@ -112,14 +126,10 @@ module simonkuehling_x_carriage()
 	}
 
 	// Fan mount
-	for(i=[-1,1]){
-        for(j=[-1,1]){
-            difference(){
-                translate([j*(body_width/2+rod_dist/2 + body_wall_thickness + 2),i*28,5]) rotate([0,0,90]) cube([15,10,10], center=true);
-                translate([j*(body_width/2+rod_dist/2 + body_wall_thickness + 2),i*28,5]) rotate([0,90,90]) cylinder(r=m3_diameter/2,h=17, center=true, $fn=8);
-            }
+        difference(){
+            translate([(body_width/2+rod_dist/2 + body_wall_thickness + 2),0,5]) rotate([0,0,90]) cube([15,10,10], center=true);
+            translate([(body_width/2+rod_dist/2 + body_wall_thickness + 2),0,5]) rotate([0,90,90]) cylinder(r=m3_diameter/2,h=17, center=true, $fn=8);
         }
-	}
 }
 
 
@@ -196,13 +206,13 @@ module belt_clamp_holes()
 		translate([i*belt_clamp_hole_separation/2,0,0])
 		cylinder(r=m3_diameter/2,h=belt_clamp_height+2,center=true,$fn=8);
 	
-		/*rotate([90,0,0])*/
-		/*rotate(360/16)*/
-		/*cylinder(r=m3_diameter/2-0.3 ,h=belt_clamp_width+2,center=true,$fn=8);*/
+		rotate([90,0,0])
+		rotate(360/16)
+		cylinder(r=m3_diameter/2-0.3 ,h=belt_clamp_width+2,center=true,$fn=8);
 
-		/*rotate([90,0,0]) */
-		/*translate([0,0,belt_clamp_width/2])*/
-		/*cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);*/
+		rotate([90,0,0]) 
+		translate([0,0,belt_clamp_width/2])
+		cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);
 	}
 }
 
