@@ -83,6 +83,11 @@ module simonkuehling_x_carriage()
             }
         }
 
+        // Latches holes
+        for (i=[-1,1]) {
+                # translate([0, i*(48.5 +5), 0]) cylinder(r=m4_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+            }
+
 		// Hotend Holes
         for (i=[-1,1])
 		translate([0,29*i,-1])
@@ -90,7 +95,7 @@ module simonkuehling_x_carriage()
 
 		// Substract Belt Clamp Holes from base plate
 		for (i=[-1,1])
-		translate([-25-13.5-1,i*(29),0])
+		translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width),0])
 		rotate(90*(i+1)+180) 
 		belt_clamp_holes();
 		
@@ -105,24 +110,23 @@ module simonkuehling_x_carriage()
 		render()
 		rotate([0,0,180])
 		lm8uu_holder();
-
-		translate([-25,i*(base_length/2 - LM8UU_length/2),0])
-		render()
-		lm8uu_holder();				
 	}
+    translate([-25,0,0])
+    render()
+    lm8uu_holder();				
 
 	// Belt Clamp Sockets
 	difference()
 	{
 		for (i=[-1,1])
-		translate([-25-13.5-1,i*(29),0])
+		translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width),0])
 		rotate(90*(i+1)+180) 
 		belt_clamp_socket ();
 
 		// BeltClamp Socket Rod Clearance
 		translate([-25,0,LM8UU_dia/2+body_wall_thickness])
 		rotate([90,0,0])
-		# cylinder(h=90,r=5,$fs=1,center=true);
+		# cylinder(h=base_length,r=5,$fs=1,center=true);
 	}
 
 	// Fan mount
