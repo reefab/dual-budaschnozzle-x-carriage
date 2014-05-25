@@ -63,13 +63,11 @@ module simonkuehling_x_carriage()
 		
 		// Extruder Mounting Holes
         for (i=[-1,1]) {
-            # translate([i*25, 0, 0]) cylinder(r=m4_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+            # translate([i*25, 0, 0]) cylinder(r=m4_nut_diameter/2,h=body_wall_thickness*2+2,$fs=1);
             for (j=[-1, 1]) {
-                # translate([i*25, j*28, 0]) cylinder(r=m4_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+                # translate([i*25, j*28, 0]) cylinder(r=m4_nut_diameter/2,h=body_wall_thickness*2+2,$fs=1);
             }
         }
-
-
 
 		// Hotend Holes
         for (i=[-1,1])
