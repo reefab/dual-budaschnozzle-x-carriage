@@ -106,6 +106,12 @@ module simonkuehling_x_carriage()
 		rotate(90*(i+1)+180) 
 		belt_clamp_holes();
 		
+
+        // Mounting holes for front fan
+        for(i=[-1,1]) {
+		    translate([25 + 5, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_diameter/2-0.3 ,h=50,center=true,$fn=8);
+		    translate([25 + 7, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);
+        }
 	}
 
 
@@ -220,13 +226,7 @@ module belt_clamp_holes()
 		translate([i*belt_clamp_hole_separation/2,0,0])
 		cylinder(r=m3_diameter/2,h=belt_clamp_height+2,center=true,$fn=8);
 	
-		rotate([90,0,0])
-		rotate(360/16)
-		cylinder(r=m3_diameter/2-0.3 ,h=belt_clamp_width+2,center=true,$fn=8);
 
-		rotate([90,0,0]) 
-		translate([0,0,belt_clamp_width/2])
-		cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);
 	}
 }
 
