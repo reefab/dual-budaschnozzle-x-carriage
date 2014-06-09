@@ -39,14 +39,16 @@ simonkuehling_x_carriage();
 base_length = 115;
 rod_dist = 50;
 
+hotends_spacing = 58;
+
 module mount_plate()
 {
     rotate([180, 0, 0])
     union()
     {
         cube([71, 97, 5], center = true);
-        translate([0, 29, -49]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
-        translate([0, -29, -49]) import("Budaschnozzle.stl");
+        translate([0, hotends_spacing/2, -49]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
+        translate([0, -hotends_spacing/2, -49]) import("Budaschnozzle.stl");
     }
 }
 
@@ -79,7 +81,7 @@ module simonkuehling_x_carriage()
         for (i=[-1,1]) {
             # translate([i*25, 0, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
             for (j=[-1, 1]) {
-                # translate([i*25, j*28, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
+                # translate([i*25, j*hotends_spacing/2, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
             }
         }
 
@@ -90,7 +92,7 @@ module simonkuehling_x_carriage()
 
 		// Hotend Holes
         for (i=[-1,1])
-		translate([0,29*i,-2])
+		translate([0,hotends_spacing/2*i,-2])
 		# cylinder(r=21,h=lm8uu_support_thickness*2+25);
 
         // Space between the hotends
@@ -135,9 +137,10 @@ module simonkuehling_x_carriage()
 	}
 
 	// Fan mount
+    for(i=[-1, 1])
         difference(){
-            translate([(body_width/2+rod_dist/2 + body_wall_thickness + 2),0,5]) rotate([0,0,90]) cube([15,10,10], center=true);
-            translate([(body_width/2+rod_dist/2 + body_wall_thickness + 2),0,5]) rotate([0,90,90]) cylinder(r=m3_diameter/2,h=17, center=true, $fn=8);
+            translate([-(body_width/2+rod_dist/2 + body_wall_thickness + 1),i*hotends_spacing/2,5]) rotate([0,0,90]) cube([15,10,10], center=true);
+            translate([-(body_width/2+rod_dist/2 + body_wall_thickness + 1),i*hotends_spacing/2,5]) rotate([0,90,90]) cylinder(r=m3_diameter/2,h=17, center=true, $fn=8);
         }
 }
 
