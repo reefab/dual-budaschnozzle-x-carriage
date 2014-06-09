@@ -67,6 +67,9 @@ module simonkuehling_x_carriage()
 			// base plate support
 			for(i=[-1,1]){
 				translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness,base_length,2*body_wall_thickness], center=true);
+				translate([0,i*(base_length/2 - body_wall_thickness/2),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness,rod_dist + body_width, 2*body_wall_thickness], center=true);
+                // support for the latches holes
+				translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness * 2 , body_wall_thickness * 2, 2*body_wall_thickness], center=true);
 			}
 			// belt clamp support
 			/*translate([-(rod_dist/2+body_width/2-body_wall_thickness/2+10.5),0,body_wall_thickness]) cube([body_wall_thickness,((28-body_length/2)-belt_clamp_width/2),2*body_wall_thickness], center=true);*/
@@ -74,9 +77,9 @@ module simonkuehling_x_carriage()
 		}
 
 		// Clearance for Rods
-		for (i=[1,-1])
-		translate([i*(25-body_wall_thickness/2),0,5+body_wall_thickness])
-		cube([body_width-body_wall_thickness,base_length+2,10],center=true);
+		/*for (i=[1,-1])*/
+		/*translate([i*(25-body_wall_thickness/2),0,5+body_wall_thickness])*/
+		/*# cube([body_width-body_wall_thickness,base_length+2,10],center=true);*/
 		
 		// Extruder Mounting Holes
         for (i=[-1,1]) {
