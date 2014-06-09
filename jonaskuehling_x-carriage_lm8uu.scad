@@ -36,7 +36,7 @@ belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 simonkuehling_x_carriage();
 % mount_plate();
 
-base_length = 137;
+base_length = 115;
 rod_dist = 50;
 
 module mount_plate()
@@ -90,41 +90,46 @@ module simonkuehling_x_carriage()
 
 		// Hotend Holes
         for (i=[-1,1])
-		translate([0,29*i,-1])
-		cylinder(r=21,h=lm8uu_support_thickness*2+2);
+		translate([0,29*i,-2])
+		# cylinder(r=21,h=lm8uu_support_thickness*2+25);
+
+        // Space between the hotends
+        cube(26, 68, body_wall_thickness*2 + 2, center=true);
 
 		// Substract Belt Clamp Holes from base plate
 		for (i=[-1,1])
-		translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width),0])
+		translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width/2),0])
 		rotate(90*(i+1)+180) 
 		belt_clamp_holes();
 		
 	}
 
 
-
-	// LM8UU Holders
-	for(i=[-1,1])
-	{
-		translate([25,i*(base_length/2 - LM8UU_length/2),0])
-		render()
-		rotate([0,0,180])
-		lm8uu_holder();
-	}
-    translate([-25,0,0])
+    // LM8UU Holders
+    for(i=[-1,1])
+    {
+        translate([25,i*(base_length/2 - LM8UU_length/2),4])
+        render() difference() {
+            rotate([0,0,180]) lm8uu_holder();
+            translate([-25,i*-17,0]) # cylinder(r=21,h=lm8uu_support_thickness*2+25);
+        }
+    }
+    translate([-25,0,4])
     render()
     lm8uu_holder();				
+
+
 
 	// Belt Clamp Sockets
 	difference()
 	{
 		for (i=[-1,1])
-		translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width),0])
+		translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width/2),0])
 		rotate(90*(i+1)+180) 
 		belt_clamp_socket ();
 
 		// BeltClamp Socket Rod Clearance
-		translate([-25,0,LM8UU_dia/2+body_wall_thickness])
+		translate([-25,0,LM8UU_dia/2+body_wall_thickness+4])
 		rotate([90,0,0])
 		# cylinder(h=base_length,r=5,$fs=1,center=true);
 	}

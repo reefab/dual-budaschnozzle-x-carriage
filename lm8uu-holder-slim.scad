@@ -28,7 +28,7 @@ nut_dia = nut_dia_perimeter;
 nut_surround_thickness = 2;
 
 // main body dimensions
-body_wall_thickness = 3;
+body_wall_thickness = 4;
 body_width = LM8UU_dia + (2*body_wall_thickness);
 body_height = body_width;
 body_length = LM8UU_length;
