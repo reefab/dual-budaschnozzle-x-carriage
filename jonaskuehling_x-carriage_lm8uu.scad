@@ -40,6 +40,7 @@ base_length = 115;
 rod_dist = 50;
 
 hotends_spacing = 58;
+space_width = 34;
 
 module mount_plate()
 {
@@ -96,7 +97,8 @@ module simonkuehling_x_carriage()
 		# cylinder(r=21,h=lm8uu_support_thickness*2+25);
 
         // Space between the hotends
-        cube(26, 68, body_wall_thickness*2 + 2, center=true);
+        translate([-space_width/2 + 4, -hotends_spacing/2, 0]) cube([space_width, hotends_spacing, body_wall_thickness*2 + 2]);
+
 
 		// Substract Belt Clamp Holes from base plate
 		for (i=[-1,1])
