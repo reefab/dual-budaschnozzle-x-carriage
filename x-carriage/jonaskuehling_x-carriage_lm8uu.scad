@@ -22,9 +22,9 @@ include <configuration.scad>
 include <lm8uu-holder-slim.scad>
 
 
-draw_carriage = 1;
+draw_carriage = 0;
 draw_belt_clamps = 0;
-draw_plate_clamp = 0;
+draw_plate_clamp = 1;
 
 belt_clamp_thickness=2; 
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
@@ -279,8 +279,8 @@ module plate_clamp()
 {
     difference(){
         union(){
-            cube([10,15,5]);
-            translate([0,0,5]) cube([15,15,5]);
+            translate([0,0,5]) cube([10,15,5]);
+            cube([15,15,5]);
         }
         translate([5,7.5,0]) cylinder(r=m4_diameter/2,h=10);
     }
