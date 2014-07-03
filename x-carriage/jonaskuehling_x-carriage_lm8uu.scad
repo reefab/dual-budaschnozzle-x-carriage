@@ -23,7 +23,7 @@ include <lm8uu-holder-slim.scad>
 
 
 draw_carriage = 1;
-draw_belt_clamps = 0;
+draw_belt_clamps = 1;
 draw_plate_clamp = 0;
 
 belt_clamp_thickness=2; 
@@ -42,6 +42,12 @@ if (draw_belt_clamps == 1) {
     for (i=[-1,1])
     translate([0,i*(28),0])
     belt_clamp();
+}
+
+if (draw_plate_clamp == 1) {
+    for (i=[-1,1])
+    translate([0,i*(28),0])
+    plate_clamp();
 }
 
 
@@ -267,6 +273,17 @@ module belt_clamp()
 		translate([-belt_width/2,-tooth_spacing/4+i*tooth_spacing,belt_clamp_clamp_height-tooth_height])
 		cube([belt_width,tooth_spacing/2,tooth_height+1]);
 	}
+}
+
+module plate_clamp()
+{
+    difference(){
+        union(){
+            cube([10,15,5]);
+            translate([0,0,5]) cube([15,15,5]);
+        }
+        translate([5,7.5,0]) cylinder(r=m4_diameter/2,h=10);
+    }
 }
 
 
