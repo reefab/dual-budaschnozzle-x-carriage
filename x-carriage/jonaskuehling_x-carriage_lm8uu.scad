@@ -22,19 +22,28 @@ include <configuration.scad>
 include <lm8uu-holder-slim.scad>
 
 
+draw_carriage = 1;
+draw_belt_clamps = 0;
+draw_plate_clamp = 0;
+
 belt_clamp_thickness=2; 
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 
-/*for (i=[-1,1])*/
-/*translate([0,i*(28),0])*/
-/*belt_clamp();*/
 
 /*belt_clamp_channel();*/
 
 
+if (draw_carriage == 1) {
+    simonkuehling_x_carriage();
+    % mount_plate();
+}
 
-simonkuehling_x_carriage();
-% mount_plate();
+if (draw_belt_clamps == 1) {
+    for (i=[-1,1])
+    translate([0,i*(28),0])
+    belt_clamp();
+}
+
 
 base_length = 115;
 rod_dist = 50;
@@ -194,7 +203,7 @@ module belt_clamp_socket()
 belt_width=6;
 belt_thickness=1.5; 
 tooth_height=1.5;
-tooth_spacing=5;
+tooth_spacing=2;
 
 belt_clamp_channel_height=belt_thickness+tooth_height+belt_clamp_thickness*2;
 
@@ -254,7 +263,7 @@ module belt_clamp()
 		rotate(360/16)
 		cylinder(r=m3_diameter/2,h=belt_clamp_clamp_height+2,$fn=8);
 
-		for(i=[-1:1])
+		for(i=[-3:3])
 		translate([-belt_width/2,-tooth_spacing/4+i*tooth_spacing,belt_clamp_clamp_height-tooth_height])
 		cube([belt_width,tooth_spacing/2,tooth_height+1]);
 	}

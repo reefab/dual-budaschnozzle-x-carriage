@@ -13,7 +13,7 @@ This a work in progress, it's not functional yet.
 
 Things to needs to be designed for it to be complete:
 
- - [ ] Belt clamps for GT2 belts.
+ - [x] Belt clamps for GT2 belts.
  - [ ] Mount plate clamps
  - [ ] fan duct for the front fan to cool down the top part of the hotends
 
