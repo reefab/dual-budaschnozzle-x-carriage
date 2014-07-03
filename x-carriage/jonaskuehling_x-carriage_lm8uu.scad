@@ -23,7 +23,7 @@ include <lm8uu-holder-slim.scad>
 
 
 draw_carriage = 1;
-draw_belt_clamps = 1;
+draw_belt_clamps = 0;
 draw_plate_clamp = 0;
 
 belt_clamp_thickness=2; 
