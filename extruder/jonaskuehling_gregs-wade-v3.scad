@@ -40,8 +40,8 @@ less_idler_bolt_dist = 0;
 
 
 
-draw_extruder = 0;
-draw_idler = 1;
+draw_extruder = 1;
+draw_idler = 0;
 
 ////////// RENDER EXTRUDER //////////////////////////////////////////////////////////////
 if (draw_extruder == 1) {

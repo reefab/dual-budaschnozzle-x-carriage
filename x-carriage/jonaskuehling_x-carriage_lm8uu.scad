@@ -21,22 +21,33 @@ include <configuration.scad>
 // jonaskuehling's slim LM8UU Holder
 include <lm8uu-holder-slim.scad>
 
+// Fan module
+include <fan.scad>
 
-draw_carriage = 0;
+draw_carriage = 1;
 draw_belt_clamps = 0;
-draw_plate_clamp = 1;
+draw_plate_clamp = 0;
 
 belt_clamp_thickness=2; 
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 
 
 /*belt_clamp_channel();*/
+base_length = 115;
+rod_dist = 50;
+
+hotends_spacing = 58;
+space_width = 34;
 
 
 if (draw_carriage == 1) {
     simonkuehling_x_carriage();
     % mount_plate();
+    // Front fan
+    % translate([rod_dist/2 + body_width/2 + body_wall_thickness + 1, 0, 19]) rotate([0, 90, 0]) fan(40,10.2);
 }
+
+/*% translate([-(rod_dist/2 + body_width/2 + body_wall_thickness + 23), -50, 99]) rotate([270, 0, 270]) import("40mm_Fan_Shroud.stl");*/
 
 if (draw_belt_clamps == 1) {
     for (i=[-1,1])
@@ -51,11 +62,6 @@ if (draw_plate_clamp == 1) {
 }
 
 
-base_length = 115;
-rod_dist = 50;
-
-hotends_spacing = 58;
-space_width = 34;
 
 module mount_plate()
 {
@@ -130,6 +136,7 @@ module simonkuehling_x_carriage()
 		    translate([25 + 5, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_diameter/2-0.3 ,h=50,center=true,$fn=8);
 		    translate([25 + 7, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);
         }
+
 	}
 
 
@@ -162,7 +169,7 @@ module simonkuehling_x_carriage()
 		# cylinder(h=base_length,r=5,$fs=1,center=true);
 	}
 
-	// Fan mount
+	// back Fan mounts 
     for(i=[-1, 1])
         difference(){
             translate([-(body_width/2+rod_dist/2 + body_wall_thickness + 1),i*hotends_spacing/2,5]) rotate([0,0,90]) cube([15,10,10], center=true);
@@ -249,7 +256,6 @@ module belt_clamp_holes()
 }
 
 belt_clamp_clamp_height=tooth_height+belt_clamp_thickness*2;
-
 
 module belt_clamp()
 {
