@@ -141,17 +141,18 @@ module simonkuehling_x_carriage()
 
 
     // LM8UU Holders
-    for(i=[-1,1])
-    {
-        translate([25,i*(base_length/2 - LM8UU_length/2),4])
-        render() difference() {
-            rotate([0,0,180]) lm8uu_holder();
-            translate([-25,i*-17,0]) # cylinder(r=21,h=lm8uu_support_thickness*2+25);
+    for(i=[-1,1]) {
+        for(j=[-1,1]) {
+                translate([j*25,i*(base_length/2 - LM8UU_length/2),4])
+                render() difference() {
+                    rotate([0,0,180]) lm8uu_holder();
+                    translate([25,i*-17,0]) # cylinder(r=21,h=lm8uu_support_thickness*2+25);
+                }
         }
     }
-    translate([-25,0,4])
-    render()
-    lm8uu_holder();				
+    /*translate([-25,0,4])*/
+    /*render()*/
+    /*lm8uu_holder();*/
 
 
 
@@ -164,9 +165,11 @@ module simonkuehling_x_carriage()
 		belt_clamp_socket ();
 
 		// BeltClamp Socket Rod Clearance
-		translate([-25,0,LM8UU_dia/2+body_wall_thickness+4])
-		rotate([90,0,0])
-		# cylinder(h=base_length,r=5,$fs=1,center=true);
+        
+		for (i=[-1,1])
+            translate([25* i,0,LM8UU_dia/2+body_wall_thickness+4])
+            rotate([90,0,0])
+            # cylinder(h=base_length,r=5,$fs=1,center=true);
 	}
 
 	// back Fan mounts 
