@@ -40,14 +40,16 @@ base_length = 115;
 rod_dist = 50;
 
 hotends_spacing = 58;
-space_width = 34;
+space_width = 20;
 
 
 if (draw_carriage == 1) {
     simonkuehling_x_carriage();
     % mount_plate();
-    // Front fan
-    % translate([rod_dist/2 + body_width/2 + body_wall_thickness + 1, 0, 19]) rotate([0, 90, 0]) fan(40,10.2);
+    // side fans
+    for (i=[-1,1]) {
+        % translate([0, i* (base_length/2 + 5), 19]) rotate([0, 90, 90]) fan(40,10.2);
+    }
 }
 
 /*% translate([-(rod_dist/2 + body_width/2 + body_wall_thickness + 23), -50, 99]) rotate([270, 0, 270]) import("40mm_Fan_Shroud.stl");*/
@@ -115,16 +117,19 @@ module simonkuehling_x_carriage()
 
         // Latches holes
         for (i=[-1,1]) {
-                # translate([0, i*(48.5 +5), 0]) cylinder(r=m4_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+            for (j=[-1,1]) {
+                # translate([j*10, i*(48.5 +5), 0]) cylinder(r=m4_diameter/2,h=body_wall_thickness*2+2,$fs=1);
+                }
             }
 
-		// Hotend Holes
+		// Hotends Holes
         for (i=[-1,1])
 		translate([0,hotends_spacing/2*i,-2])
 		# cylinder(r=21,h=lm8uu_support_thickness*2+25);
 
         // Space between the hotends
-        translate([-space_width/2 + 4, -hotends_spacing/2, 0]) cube([space_width, hotends_spacing, body_wall_thickness*2 + 2]);
+        translate([-space_width/2, -hotends_spacing/2, 0]) 
+        # cube([space_width, hotends_spacing, body_wall_thickness*2 + 2]);
 
 
 		// Substract Belt Clamp Holes from base plate
@@ -134,11 +139,11 @@ module simonkuehling_x_carriage()
 		belt_clamp_holes();
 		
 
-        // Mounting holes for front fan
-        for(i=[-1,1]) {
-		    translate([25 + 5, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_diameter/2-0.3 ,h=50,center=true,$fn=8);
-		    translate([25 + 7, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);
-        }
+        // Mounting holes for side fans
+        /*for(i=[-1,1]) {*/
+		    /*translate([25 + 5, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_diameter/2-0.3 ,h=50,center=true,$fn=8);*/
+		    /*translate([25 + 7, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);*/
+        /*}*/
 
 	}
 
