@@ -23,6 +23,7 @@ include <LM8UU_holder_ziptie.scad>
 // jonaskuehling's slim LM8UU Holder
 /*include <lm8uu-holder-slim.scad>*/
 
+include <nutsnbolts/cyl_head_bolt.scad>;
 
 // Fan module
 include <fan.scad>
@@ -92,13 +93,25 @@ module simonkuehling_x_carriage()
 
 			// base plate support
 			for(i=[-1,1]){
-				translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness,base_length,2*body_wall_thickness], center=true);
+                // side walls
+				translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness, base_length,body_wall_thickness * 2], center=true);
+                // center mounting holes nuttrap support
+                translate([i*25, 0, body_wall_thickness]) cube([16, 15, body_wall_thickness * 2], center=true)
+
 				translate([0,i*(base_length/2 - body_wall_thickness/2),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness,rod_dist + body_width, 2*body_wall_thickness], center=true);
                 // support for the latches holes
 				translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness * 2 , body_wall_thickness * 2, 2*body_wall_thickness], center=true);
 			}
 			// belt clamp support
 			/*translate([-(rod_dist/2+body_width/2-body_wall_thickness/2+10.5),0,body_wall_thickness]) cube([body_wall_thickness,((28-body_length/2)-belt_clamp_width/2),2*body_wall_thickness], center=true);*/
+            // LM8UU Holders
+            for(i=[-1,1]) {
+                for(j=[-1,1]) {
+                        translate([j*25,i*(base_length/2 - LM8UU_length/2 - body_wall_thickness), body_wall_thickness])
+                        render() rotate([0,0,90]) LM8UU_holder();
+                            /*translate([25,i*-17,0]) # cylinder(r=21,h=lm8uu_support_thickness*2+25);*/
+        }
+    }
 
 		}
 
@@ -109,9 +122,10 @@ module simonkuehling_x_carriage()
 		
 		// Extruder Mounting Holes
         for (i=[-1,1]) {
-            # translate([i*25, 0, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
+            # translate([i*25, 0, body_wall_thickness*2]) nutcatch_parallel("M5", l=3);
+            # translate([i*25, 0, 5]) hole_through("M5", l=5);
             for (j=[-1, 1]) {
-                # translate([i*25, j*hotends_spacing/2, 0]) cylinder(r=3.5,h=body_wall_thickness*2+2,$fs=1);
+                # translate([i*25, j*hotends_spacing/2, 0]) cylinder(r=3.5,h=body_wall_thickness+2,$fs=1);
             }
         }
 
@@ -139,23 +153,9 @@ module simonkuehling_x_carriage()
 		belt_clamp_holes();
 		
 
-        // Mounting holes for side fans
-        /*for(i=[-1,1]) {*/
-		    /*translate([25 + 5, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_diameter/2-0.3 ,h=50,center=true,$fn=8);*/
-		    /*translate([25 + 7, i*16, body_wall_thickness]) rotate([0,90,0]) cylinder(r=m3_nut_diameter/2-0.3 ,h=3.4,center=true,$fn=6);*/
-        /*}*/
-
 	}
 
 
-    // LM8UU Holders
-    for(i=[-1,1]) {
-        for(j=[-1,1]) {
-                translate([j*25,i*(base_length/2 - LM8UU_length/2 - body_wall_thickness),4])
-                render() rotate([0,0,90]) LM8UU_holder();
-                    /*translate([25,i*-17,0]) # cylinder(r=21,h=lm8uu_support_thickness*2+25);*/
-        }
-    }
     /*translate([-25,0,4])*/
     /*render()*/
     /*lm8uu_holder();*/
