@@ -88,8 +88,10 @@ module simonkuehling_x_carriage()
                 // front/back walls
                 translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness, base_length,body_wall_thickness * 2], center=true);
                 // center mounting holes nuttrap support
-                translate([i*25, 0, body_wall_thickness]) cube([20, 25, body_wall_thickness * 2], center=true);
-                // side walls
+                translate([i*rod_dist/2, 0, body_wall_thickness]) cube([20, 25, body_wall_thickness * 2], center=true);
+                // rear fan duct holes support
+                translate([-(rod_dist/2 + body_width/2) + body_wall_thickness, 0, body_wall_thickness * 2]) cube([6, 25, body_wall_thickness], center=true);
+                // side wall
                 translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness+1]) rotate([0,0,90])  
                      cube([body_wall_thickness*2,rod_dist-10, 2*body_wall_thickness], center=true);
             }
@@ -161,7 +163,7 @@ module simonkuehling_x_carriage()
         }
         // rear fan duct traps and holes
         for (i=[-1,1]) {
-                translate([-(body_width/2 + rod_dist/2) + 2*body_wall_thickness, i*rear_fan_duct_hole_spacing/2, body_wall_thickness]) {
+                translate([-(body_width/2 + rod_dist/2) + 2*body_wall_thickness, i*rear_fan_duct_hole_spacing/2, body_wall_thickness + 1]) {
                     rotate([0, 90, 0]) {
                         hole_through("M3", l=10);
                         nutcatch_sidecut("M3", l=10);
