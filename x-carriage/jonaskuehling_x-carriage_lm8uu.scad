@@ -33,7 +33,7 @@ belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 
 
 /*belt_clamp_channel();*/
-base_length = 115;
+base_length = 110;
 rod_dist = 50;
 
 hotends_spacing = 58;
@@ -70,70 +70,69 @@ module mount_plate()
 
 module simonkuehling_x_carriage() 
 {
-    render()
-        difference()
+    difference()
+    {
+        union ()
         {
-            union ()
-            {           
-                // base plate
-                translate([0,0,body_wall_thickness/2])
-                    cube([rod_dist+body_width,base_length,body_wall_thickness],center=true);
+            // base plate
+            translate([0,0,body_wall_thickness/2])
+                cube([rod_dist+body_width,base_length,body_wall_thickness],center=true);
 
-                // base plate support
-                for(i=[-1,1]){
-                    // side walls
-                    translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness, base_length,body_wall_thickness * 2], center=true);
-                    // center mounting holes nuttrap support
-                    translate([i*25, 0, body_wall_thickness]) cube([16, 15, body_wall_thickness * 2], center=true)
+            // base plate support
+            for(i=[-1,1]){
+                // side walls
+                translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness, base_length,body_wall_thickness * 2], center=true);
+                // center mounting holes nuttrap support
+                translate([i*25, 0, body_wall_thickness]) cube([16, 15, body_wall_thickness * 2], center=true)
 
-                        translate([0,i*(base_length/2 - body_wall_thickness/2),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness,rod_dist + body_width, 2*body_wall_thickness], center=true);
-                    // support for the latches holes
-                    /*translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness * 2 , body_wall_thickness * 2, 2*body_wall_thickness], center=true);*/
-                }
-                // belt clamp support
-                /*translate([-(rod_dist/2+body_width/2-body_wall_thickness/2+10.5),0,body_wall_thickness]) cube([body_wall_thickness,((28-body_length/2)-belt_clamp_width/2),2*body_wall_thickness], center=true);*/
-                // LM8UU Holders
-                for(i=[-1,1]) {
-                    for(j=[-1,1]) {
-                        translate([j*25,i*(base_length/2 - LM8UU_length/2 - body_wall_thickness), body_wall_thickness])
-                            rotate([0,0,90]) LM8UU_holder();
-                    }
-                }
-
+                    translate([0,i*(base_length/2 - body_wall_thickness/2),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness,rod_dist + body_width, 2*body_wall_thickness], center=true);
+                // support for the latches holes
+                /*translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness * 2 , body_wall_thickness * 2, 2*body_wall_thickness], center=true);*/
             }
-
-            // Extruder Mounting Holes
-            for (i=[-1,1]) {
-                translate([i*25, 0, body_wall_thickness*2]) nutcatch_parallel("M5", l=3);
-                translate([i*25, 0, 5]) hole_through("M5", l=5);
-                for (j=[-1, 1]) {
-                    translate([i*25, j*hotends_spacing/2, 0]) cylinder(r=3.5,h=body_wall_thickness+2,$fs=1);
+            // belt clamp support
+            /*translate([-(rod_dist/2+body_width/2-body_wall_thickness/2+10.5),0,body_wall_thickness]) cube([body_wall_thickness,((28-body_length/2)-belt_clamp_width/2),2*body_wall_thickness], center=true);*/
+            // LM8UU Holders
+            for(i=[-1,1]) {
+                for(j=[-1,1]) {
+                    translate([j*25,i*(base_length/2 - LM8UU_length/2 - body_wall_thickness), body_wall_thickness])
+                        rotate([0,0,90]) LM8UU_holder();
                 }
             }
-
-            // Hotends Holes
-            for (i=[-1,1])
-                translate([0,hotends_spacing/2*i,-2])
-                    cylinder(r=21,h=lm8uu_support_thickness*2+25);
-
-            // Space between the hotends
-            translate([-space_width/2, -hotends_spacing/2, 0]) 
-                cube([space_width, hotends_spacing, body_wall_thickness*2 + 2]);
-
-
-            // Substract Belt Clamp Holes from base plate
-            for (i=[-1,1]) {
-                translate([ -body_width/2 - rod_dist/2, i*(base_length/2 - belt_clamp_width/2), 0]) {
-                    hole_through("M3");
-                    rotate([0, 0, i*90])
-                        translate([0, 0, 5])
-# nutcatch_sidecut("M3", l=belt_clamp_width/2);
-                }
-            }
-
-
 
         }
+
+        // Extruder Mounting Holes
+        for (i=[-1,1]) {
+            translate([i*25, 0, body_wall_thickness*2]) nutcatch_parallel("M5", l=3);
+            translate([i*25, 0, 5]) hole_through("M5", l=5);
+            for (j=[-1, 1]) {
+                translate([i*25, j*hotends_spacing/2, 0]) cylinder(r=3.5,h=body_wall_thickness+2,$fs=1);
+            }
+        }
+
+        // Hotends Holes
+        for (i=[-1,1])
+            translate([0,hotends_spacing/2*i,-2])
+                cylinder(r=21,h=lm8uu_support_thickness*2+25);
+
+        // Space between the hotends
+        translate([-space_width/2, -hotends_spacing/2, 0]) 
+            cube([space_width, hotends_spacing, body_wall_thickness*2 + 2]);
+
+
+        // Substract Belt Clamp Holes from base plate
+        for (i=[-1,1]) {
+            translate([ -body_width/2 - rod_dist/2, i*(base_length/2 - belt_clamp_width/2), 0]) {
+                hole_through("M3");
+                rotate([0, 0, i*90])
+                    translate([0, 0, 5])
+# nutcatch_sidecut("M3", l=belt_clamp_width/2);
+            }
+        }
+
+
+
+    }
 
 
     // Belt Clamp Sockets
@@ -144,12 +143,12 @@ module simonkuehling_x_carriage()
                 rotate(90*(i+1)+180) 
                 belt_clamp_socket ();
 
-        // BeltClamp Socket Rod Clearance
+        // Rods
 
         for (i=[-1,1])
             translate([25* i,0,LM8UU_dia/2+body_wall_thickness+4])
                 rotate([90,0,0])
-# cylinder(h=base_length,r=5,$fs=1,center=true);
+                % cylinder(h=base_length,r=4,$fs=1,center=true);
     }
 
     // back Fan mounts 
