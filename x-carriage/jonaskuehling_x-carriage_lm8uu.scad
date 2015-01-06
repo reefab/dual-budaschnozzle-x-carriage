@@ -38,6 +38,7 @@ rod_dist = 50;
 
 hotends_spacing = 58;
 space_width = 20;
+fan_hole_spacing = 32;
 
 
 if (draw_carriage == 1) {
@@ -140,9 +141,19 @@ module simonkuehling_x_carriage()
                 hole_through("M3");
                 rotate([0, 0, i*90])
                     translate([0, 0, 5])
-                     # nutcatch_sidecut("M3", l=belt_clamp_width/2+1);
+                      nutcatch_sidecut("M3", l=belt_clamp_width/2+1);
             }
         }
+
+        // Side fans nut trap
+        for (i=[-1,1]) {
+            for (j=[-1,1]) {
+                translate([i*fan_hole_spacing/2, j*(base_length/2 - body_wall_thickness)-1, 5])
+                rotate([90, 90, 0])
+                # nutcatch_sidecut("M3", l=10);
+            }
+        }
+
 
     }
 
