@@ -37,7 +37,7 @@ base_length = 110;
 rod_dist = 50;
 
 hotends_spacing = 58;
-space_width = 20;
+space_width = 30;
 fan_hole_spacing = 32;
 rear_fan_duct_hole_spacing = 15;
 
@@ -55,8 +55,6 @@ if (draw_carriage == 1) {
             rotate([90,0,0])
             % cylinder(h=base_length,r=4,$fs=1,center=true);
 }
-
-/*% translate([-(rod_dist/2 + body_width/2 + body_wall_thickness + 23), -50, 99]) rotate([270, 0, 270]) import("40mm_Fan_Shroud.stl");*/
 
 if (draw_belt_clamps == 1) {
     for (i=[-1,1])
@@ -95,6 +93,8 @@ module simonkuehling_x_carriage()
                 translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness+1]) rotate([0,0,90])  
                      cube([body_wall_thickness*2,rod_dist-10, 2*body_wall_thickness], center=true);
             }
+            // central support beam
+            translate([0, 0, body_wall_thickness]) cube([30, 6, body_wall_thickness * 2], center=true);
             // LM8UU Holders
             for(i=[-1,1]) {
                 for(j=[-1,1]) {
@@ -133,8 +133,9 @@ module simonkuehling_x_carriage()
                 cylinder(r=21,h=lm8uu_support_thickness*2+25);
 
         // Space between the hotends
-        translate([-space_width/2, -hotends_spacing/2, 0]) 
-            cube([space_width, hotends_spacing, body_wall_thickness*2 + 2]);
+        for (i=[-1, 1])
+            translate([0, i*8, 0])
+                 cube([space_width, 10, body_wall_thickness*2 + 2], center=true);
 
 
         // Substract Belt Clamp Holes from base plate
