@@ -43,16 +43,16 @@ fan_hole_spacing = 32;
 
 if (draw_carriage == 1) {
     simonkuehling_x_carriage();
-    % mount_plate();
-    // side fans
-    for (i=[-1,1]) {
-        % translate([0, i* (base_length/2 + 5), 19]) rotate([0, 90, 90]) fan(40,10.2);
-    }
-    // Rods
-    for (i=[-1,1])
-        translate([25* i,0,LM8UU_dia/2+body_wall_thickness+4])
-            rotate([90,0,0])
-            % cylinder(h=base_length,r=4,$fs=1,center=true);
+    /*% mount_plate();*/
+    /*// side fans*/
+    /*for (i=[-1,1]) {*/
+    /*    % translate([0, i* (base_length/2 + 5), 19]) rotate([0, 90, 90]) fan(40,10.2);*/
+    /*}*/
+    /*// Rods*/
+    /*for (i=[-1,1])*/
+    /*    translate([25* i,0,LM8UU_dia/2+body_wall_thickness+4])*/
+    /*        rotate([90,0,0])*/
+    /*        % cylinder(h=base_length,r=4,$fs=1,center=true);*/
 }
 
 /*% translate([-(rod_dist/2 + body_width/2 + body_wall_thickness + 23), -50, 99]) rotate([270, 0, 270]) import("40mm_Fan_Shroud.stl");*/
@@ -86,12 +86,13 @@ module simonkuehling_x_carriage()
 
             // base plate support
             for(i=[-1,1]){
-                // side walls
+                // front/back walls
                 translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness, base_length,body_wall_thickness * 2], center=true);
                 // center mounting holes nuttrap support
-                translate([i*25, 0, body_wall_thickness]) cube([16, 15, body_wall_thickness * 2], center=true)
-
-                    translate([0,i*(base_length/2 - body_wall_thickness/2),body_wall_thickness]) rotate([0,0,90])  cube([body_wall_thickness,rod_dist + body_width, 2*body_wall_thickness], center=true);
+                translate([i*25, 0, body_wall_thickness]) cube([16, 15, body_wall_thickness * 2], center=true);
+                // side walls
+                translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness+1]) rotate([0,0,90])  
+                     cube([body_wall_thickness*2,rod_dist-10, 2*body_wall_thickness], center=true);
             }
             // LM8UU Holders
             for(i=[-1,1]) {
@@ -145,12 +146,14 @@ module simonkuehling_x_carriage()
             }
         }
 
-        // Side fans nut trap
+        // Side fans nut traps and holes
         for (i=[-1,1]) {
             for (j=[-1,1]) {
                 translate([i*fan_hole_spacing/2, j*(base_length/2 - body_wall_thickness)-1, 5])
-                rotate([90, 90, 0])
-                # nutcatch_sidecut("M3", l=10);
+                    rotate([90, 90, 0]) nutcatch_sidecut("M3", l=10);
+                translate([i*fan_hole_spacing/2, j*base_length/2 - 5, 5])
+                    rotate([90,0,0])
+                     hole_through("M3", l=10);
             }
         }
 
