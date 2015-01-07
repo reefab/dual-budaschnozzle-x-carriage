@@ -720,12 +720,12 @@ module malcolm_hotend_holes (){
 
 //groovemount_holes ();
 module groovemount_holes (){
-	extruder_recess_d=16; 
+	extruder_recess_d=3.5; 
 	extruder_recess_h=5.5;
 
 	// Recess in base
-	/*translate([0,0,-1])*/
-	/*cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);	*/
+	translate([0,0,-1])
+	cylinder(r=extruder_recess_d/2,h=extruder_recess_h+1);	
 }
 
 //peek_reprapsource_holes ();
