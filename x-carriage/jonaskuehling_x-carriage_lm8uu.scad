@@ -147,6 +147,8 @@ module simonkuehling_x_carriage()
                       nutcatch_sidecut("M3", l=belt_clamp_width/2+1);
                     translate([0, 0, 10])
                       hole_through("M3", l=10);
+                    translate([-9, 0, 10])
+                       nutcatch_parallel("M3");
             }
         }
 
