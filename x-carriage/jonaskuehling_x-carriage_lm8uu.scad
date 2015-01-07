@@ -135,8 +135,8 @@ module simonkuehling_x_carriage()
 
         // Space between the hotends
         for (i=[-1, 1])
-            translate([0, i*8, 0])
-                 cube([space_width, 10, body_wall_thickness*2 + 2], center=true);
+            translate([0, i*9, 0])
+                 cube([space_width, 12, body_wall_thickness*2 + 2], center=true);
 
 
         // Substract Belt Clamp Holes from base plate
