@@ -162,7 +162,7 @@ nema17_support_d=nema17_width-nema17_hole_spacing;
 screw_head_recess_diameter=7.2;
 screw_head_recess_depth=3;
 
-motor_mount_rotation=0;
+motor_mount_rotation=25;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
 
@@ -225,7 +225,7 @@ module wade (hotend_mount=0,legacy_mount=false){
 
 			// Filler between wade block and motor mount.
 			translate([10,motor_mount_translation[1]-hole_for_608/2-elevation,0])
-			cube([wade_block_width+extra_gear_separation,
+			cube([wade_block_width+extra_gear_separation + 4,
 				wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation,
 				motor_mount_thickness]);
 
@@ -234,8 +234,8 @@ module wade (hotend_mount=0,legacy_mount=false){
 			barbell(block_top_right-[0,5],motor_hole(0),5,nema17_support_d/2,100,60);
 
 			//Connect motor mount to base.
-			% linear_extrude(height=motor_mount_thickness)
-			barbell([base_length-base_leadout,
+			linear_extrude(height=motor_mount_thickness)
+			barbell([base_length/1.5-base_leadout,
 				base_thickness/2],motor_hole(2),base_thickness/2,
 				nema17_support_d/2,100,60);
 
