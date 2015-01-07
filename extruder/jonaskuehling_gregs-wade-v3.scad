@@ -47,6 +47,7 @@ draw_idler = 0;
 if (draw_extruder == 1) {
     translate([30, 2, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
     translate([30, -2, 0]) mirror([0, 1, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
+    translate([41, 46, 0]) rotate([180, 0 ,105]) % import("biggearmod_fixed.stl");
 }
 //wade(hotend_mount=reprapfaborg_mount, legacy_mount=false);
 //wade(hotend_mount=jhead_mount, legacy_mount=false);
