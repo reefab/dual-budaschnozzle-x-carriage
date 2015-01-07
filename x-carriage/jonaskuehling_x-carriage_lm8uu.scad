@@ -32,7 +32,6 @@ belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 
 
-/*belt_clamp_channel();*/
 base_length = 110;
 rod_dist = 50;
 
@@ -115,7 +114,7 @@ module simonkuehling_x_carriage()
                 for (i=[-1,1])
                     translate([25* i,0,LM8UU_dia/2+body_wall_thickness])
                         rotate([90,0,0])
-                         cylinder(h=base_length,r=LM8UU_dia/2,$fs=1,center=true);
+                          cylinder(h=base_length,r=LM8UU_dia/2 + 3,$fs=1,center=true);
             }
 
         }
