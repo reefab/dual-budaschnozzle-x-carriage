@@ -27,8 +27,9 @@ include <fan.scad>
 
 draw_carriage = 1;
 draw_belt_clamps = 0;
+draw_fan_duct = 0;
 
-belt_clamp_thickness=2; 
+belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
 
 
@@ -46,7 +47,10 @@ if (draw_carriage == 1) {
     % mount_plate();
     // side fans
     for (i=[-1,1]) {
-        % translate([0, i* (base_length/2 + 5), 19]) rotate([0, 90, 90]) fan(40,10.2);
+        translate([0, i* (base_length/2 + 5), 18]) {
+            rotate([0, 90, 90]) % fan(40,10.2);
+            % fan_duct();
+        }
     }
     // Rods
     for (i=[-1,1])
@@ -59,6 +63,27 @@ if (draw_belt_clamps == 1) {
     for (i=[-1,1])
         translate([0,i*(28),0])
             belt_clamp();
+}
+
+if (draw_fan_duct == 1) {
+    rotate([0, 180, 0]) fan_duct();
+}
+
+module fan_duct() {
+    difference() {
+        cylinder(d=40, h=20);
+        cylinder(d=38, h=19);
+        translate([-20, -5, 0]) cube([40, 40, 40]);
+        translate([-20, -55, -25]) cube([40, 40, 40]);
+    }
+    for(i=[-1,1]) {
+        translate([i*fan_hole_spacing/2, -7.5, 15]) {
+            difference() {
+                cube([5,5,8], center=true);
+                rotate([90, 0, 0]) cylinder(d=3 + clearance, h=6, center=true);
+            }
+        }
+    }
 }
 
 
