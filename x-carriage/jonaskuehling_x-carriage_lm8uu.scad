@@ -25,10 +25,12 @@ include <nutsnbolts/cyl_head_bolt.scad>;
 // Fan module
 include <fan.scad>
 
-draw_carriage = 0;
+include <funnel.scad>
+
+draw_carriage = 1;
 draw_belt_clamps = 0;
 draw_side_fan_duct = 0;
-draw_rear_fan_duct = 1;
+draw_rear_fan_duct = 0;
 
 belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
@@ -59,7 +61,10 @@ if (draw_carriage == 1) {
             rotate([90,0,0])
             % cylinder(h=base_length,r=4,$fs=1,center=true);
     // rear fan duct
-    translate([-body_width/2 -rod_dist/2 -body_wall_thickness, -20, 0]) fan_duct();
+    translate([-body_width/2 -rod_dist/2 -body_wall_thickness, 0, 0]) {
+        fan_duct();
+        translate([-7, 0, 30]) rotate([0, 90, 0]) % fan(40,10.2);
+    }
 }
 
 if (draw_belt_clamps == 1) {
@@ -79,19 +84,33 @@ if (draw_rear_fan_duct == 1) {
 
 module fan_duct() {
     thickness = 3;
+    height = 50;
     difference() {
         // main plate
-        translate([-thickness/2, -20, 0]) cube([thickness, 40, 50]);
+        translate([-thickness/2, -20, 0]) cube([thickness, 40, height]);
         // holes for affixing to the x-carriage
         for(i=[-1,1]) {
                 translate([0, i*rear_fan_duct_hole_spacing/2, body_wall_thickness + 1])
                     rotate([0, 90, 0]) 
-                     cylinder(d=3, h=thickness + 1, center=true, $fn=10);
+                     cylinder(d=3 + clearance, h=thickness + 1, center=true, $fn=10);
         }
-        translate([0, 0, 30])
+        // fan hole
+        translate([0, 0, height-20]) {
             rotate([0, 90, 0]) 
              cylinder(d=38, h=thickness + 1, center=true);
+            // fan support holes
+            for(i=[-1,1])
+                for(j=[-1,1])
+                    translate([0, i*fan_hole_spacing/2, j*fan_hole_spacing/2])
+                        rotate([0, 90, 0]) 
+                          cylinder(d=3 + clearance, h=thickness + 1, center=true, $fn=10);
+        }
     }
+    // bottom funnel
+    translate([0, 0, 30]) rotate([0, 90, 0]) tube(d1=40, d2=31, height=10, thickness=2, offset=[20, 0, 0]);
+    // middle funnel
+    translate([10, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=25, thickness=2);
+    /*translate([40, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=10, thickness=2);*/
 }
 
 module side_fan_duct() {
