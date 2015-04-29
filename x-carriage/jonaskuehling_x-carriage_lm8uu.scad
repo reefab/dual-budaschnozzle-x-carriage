@@ -25,9 +25,10 @@ include <nutsnbolts/cyl_head_bolt.scad>;
 // Fan module
 include <fan.scad>
 
-draw_carriage = 1;
+draw_carriage = 0;
 draw_belt_clamps = 0;
 draw_side_fan_duct = 0;
+draw_rear_fan_duct = 1;
 
 belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
@@ -71,9 +72,27 @@ if (draw_side_fan_duct == 1) {
     rotate([0, 180, 0]) side_fan_duct();
 }
 
+if (draw_rear_fan_duct == 1) {
+    translate([0, 0, 50]) rotate([180, 0, 0]) fan_duct();
+}
+
+
 module fan_duct() {
-    cube([3, 40, 50]);
+    thickness = 3;
+    difference() {
+        // main plate
+        translate([-thickness/2, -20, 0]) cube([thickness, 40, 50]);
+        // holes for affixing to the x-carriage
+        for(i=[-1,1]) {
+                translate([0, i*rear_fan_duct_hole_spacing/2, body_wall_thickness + 1])
+                    rotate([0, 90, 0]) 
+                     cylinder(d=3, h=thickness + 1, center=true, $fn=10);
+        }
+        translate([0, 0, 30])
+            rotate([0, 90, 0]) 
+             cylinder(d=38, h=thickness + 1, center=true);
     }
+}
 
 module side_fan_duct() {
     difference() {
