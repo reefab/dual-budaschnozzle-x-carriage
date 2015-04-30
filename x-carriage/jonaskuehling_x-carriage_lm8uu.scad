@@ -52,7 +52,7 @@ if (draw_carriage == 1) {
     for (i=[-1,1]) {
         translate([0, i* (base_length/2 + 5), 18]) {
             rotate([0, 90, 90]) % fan(40,10.2);
-             side_fan_duct();
+             % side_fan_duct();
         }
     }
     // Rods
@@ -61,9 +61,9 @@ if (draw_carriage == 1) {
             rotate([90,0,0])
             % cylinder(h=base_length,r=4,$fs=1,center=true);
     // rear fan duct
-    translate([-body_width/2 -rod_dist/2 -body_wall_thickness, 0, 0]) {
-        fan_duct();
-        translate([-7, 0, 30]) rotate([0, 90, 0]) % fan(40,10.2);
+    translate([-body_width/2 -rod_dist/2 -body_wall_thickness, 20, 0]) {
+        rotate([0, -90, 180]) fan_duct();
+        translate([-5.1, -20, 36]) rotate([0, 90, 0]) % fan(40,10.2);
     }
 }
 
@@ -78,39 +78,92 @@ if (draw_side_fan_duct == 1) {
 }
 
 if (draw_rear_fan_duct == 1) {
-    translate([0, 0, 50]) rotate([180, 0, 0]) fan_duct();
+    /*translate([0, 0, 50]) rotate([180, 0, 0]) fan_duct();*/
+    fan_duct();
 }
 
 
 module fan_duct() {
     thickness = 3;
-    height = 50;
+    height = 56;
+    width = 40;
+    lenght =  50;
+    nozzle_length = 15;
     difference() {
         // main plate
-        translate([-thickness/2, -20, 0]) cube([thickness, 40, height]);
+        cube([height, width, thickness]);
         // holes for affixing to the x-carriage
         for(i=[-1,1]) {
-                translate([0, i*rear_fan_duct_hole_spacing/2, body_wall_thickness + 1])
-                    rotate([0, 90, 0]) 
-                     cylinder(d=3 + clearance, h=thickness + 1, center=true, $fn=10);
+                translate([body_wall_thickness + 1, width/2 + i*rear_fan_duct_hole_spacing/2, 0])
+                     rotate([0, 180, 0]) hole_through("M3", l=thickness);
         }
         // fan hole
-        translate([0, 0, height-20]) {
-            rotate([0, 90, 0]) 
-             cylinder(d=38, h=thickness + 1, center=true);
+        translate([height-20, width/2, 0]) {
+            cylinder(d=38, h=thickness);
             // fan support holes
             for(i=[-1,1])
                 for(j=[-1,1])
-                    translate([0, i*fan_hole_spacing/2, j*fan_hole_spacing/2])
-                        rotate([0, 90, 0]) 
-                          cylinder(d=3 + clearance, h=thickness + 1, center=true, $fn=10);
+                    translate([i*fan_hole_spacing/2, j*fan_hole_spacing/2, 0])
+                          rotate([0, 180, 0]) hole_through("M3", l=thickness);
         }
     }
-    // bottom funnel
-    translate([0, 0, 30]) rotate([0, 90, 0]) tube(d1=40, d2=31, height=10, thickness=2, offset=[20, 0, 0]);
-    // middle funnel
-    translate([10, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=25, thickness=2);
-    /*translate([40, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=10, thickness=2);*/
+    // bottom plate
+    difference() {
+    translate([height - thickness + 2, 0, 0]) cube([2, width, lenght]);
+         // nozzle holes
+         for(i=[-1,1]) {
+            translate([height - thickness/2 + 2, width/2 + i*(14), lenght - nozzle_length - 2] ) cylinder(d=8, h=nozzle_length);
+        }
+    }
+    // bottom walls
+    difference() {
+        translate([height - thickness* 2, 0, thickness]) cube([6, width, lenght - thickness]);
+        translate([height - thickness* 2, 1, thickness]) cube([6, width - 2, lenght - thickness -1]);
+    }
+    // bottom "roof"
+    translate([height - thickness -3, 0, lenght - 25 -1]) cube([2, width, 25]);
+
+    // first funnel
+    translate([height-20, width/2, thickness]) {
+        difference() {
+            union() {
+                tube(d1=40, d2=39, height=10, thickness=2, offset=[-90,0,0]);
+                translate([0, -width/2, 0]) cube([20,40,10]);
+            }
+            translate([10, 0, 0]) cube([20,38,20], center=true);
+        }
+    }
+    // second funnel
+    translate([height-17, width/2, thickness + 10]) {
+        difference() {
+            union() {
+                tube(d1=40, d2=0, height=12, thickness=2, offset=[-11,0,0]);
+                difference() {
+                    translate([11, -width/2, 0]) cube([2,40,11]);
+                    tube(d1=40, d2=0, height=12, thickness=100, offset=[-11,0,0]);
+                }
+            }
+            translate([12, -width/2 + 1, 0]) cube([5,38,20]);
+        }
+    }
+    /*// middle funnel*/
+    /*translate([10, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=8, thickness=2);*/
+    /*// top funnel*/
+    /*translate([18, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=5, height=12, thickness=2, offset=[15, 0, 0]);*/
+
+
+    /*// nozzle*/
+    /*nozzle_length = 40;*/
+    /*translate([37, 0, 53]) {*/
+    /*    difference() {*/
+    /*        cube([15, nozzle_length, 8], center=true);*/
+    /*        cube([13, nozzle_length-2, 6], center=true);*/
+    /*        for(i=[-1,1]) {*/
+    /*            translate([0, i*(nozzle_length/2 - 7), 4]) rotate([0, 90, 0])  cylinder(d=6, h=15, center=true);*/
+    /*            translate([0, i*(nozzle_length/2 - 4), 4]) cube([15,6,6], center=true);*/
+    /*        }*/
+    /*    }*/
+    /*}*/
 }
 
 module side_fan_duct() {
@@ -136,8 +189,8 @@ module mount_plate()
     rotate([180, 0, 0]) union()
     {
         cube([71, 85, 5], center = true);
-        translate([0, hotends_spacing/2, -47]) rotate([0, 0, 0]) import("Budaschnozzle.stl");
-        translate([0, -hotends_spacing/2, -47]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
+        translate([0, hotends_spacing/2, -47]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
+        translate([0, -hotends_spacing/2, -47]) rotate([0, 0, 0]) import("Budaschnozzle.stl");
     }
 }
 
