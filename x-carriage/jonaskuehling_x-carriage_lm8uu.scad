@@ -27,10 +27,10 @@ include <fan.scad>
 
 include <funnel.scad>
 
-draw_carriage = 0;
+draw_carriage = 1;
 draw_belt_clamps = 0;
 draw_side_fan_duct = 0;
-draw_rear_fan_duct = 1;
+draw_rear_fan_duct = 0;
 
 belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
