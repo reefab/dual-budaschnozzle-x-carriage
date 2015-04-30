@@ -27,10 +27,10 @@ include <fan.scad>
 
 include <funnel.scad>
 
-draw_carriage = 1;
+draw_carriage = 0;
 draw_belt_clamps = 0;
 draw_side_fan_duct = 0;
-draw_rear_fan_duct = 0;
+draw_rear_fan_duct = 1;
 
 belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
@@ -121,29 +121,26 @@ module fan_duct() {
         translate([height - thickness* 2, 1, thickness]) cube([6, width - 2, lenght - thickness -1]);
     }
     // bottom "roof"
-    translate([height - thickness -3, 0, lenght - 25 -1]) cube([2, width, 25]);
+    translate([height - thickness -3, 0, lenght - nozzle_length -1]) cube([1, width, nozzle_length]);
 
     // first funnel
     translate([height-20, width/2, thickness]) {
         difference() {
-            union() {
-                tube(d1=40, d2=39, height=10, thickness=2, offset=[-90,0,0]);
-                translate([0, -width/2, 0]) cube([20,40,10]);
-            }
-            translate([10, 0, 0]) cube([20,38,20], center=true);
+            funnel(d1=40, d2=39, l=20, height=10, thickness=2, offset=[-100,0,0]);
+            translate([34, 0, 0]) cube([40,40,20], center=true);
         }
     }
     // second funnel
-    translate([height-17, width/2, thickness + 10]) {
+    translate([height-17.5, width/2, thickness + 10]) {
         difference() {
             union() {
-                tube(d1=40, d2=0, height=12, thickness=2, offset=[-11,0,0]);
+                funnel(d1=39, d2=0, l=20, height=20, thickness=2, offset=[-11,0,0]);
                 difference() {
-                    translate([11, -width/2, 0]) cube([2,40,11]);
-                    tube(d1=40, d2=0, height=12, thickness=100, offset=[-11,0,0]);
+                    translate([11.5, -width/2, 0]) cube([1,40,21]);
+                    funnel(d1=39, d2=0, l=20, height=20, thickness=100, offset=[-11,0,0]);
                 }
             }
-            translate([12, -width/2 + 1, 0]) cube([5,38,20]);
+            # translate([12.5, -width/2, 0]) cube([25,40,20]);
         }
     }
     /*// middle funnel*/
