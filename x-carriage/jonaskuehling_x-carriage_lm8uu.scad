@@ -107,21 +107,36 @@ module fan_duct() {
                           rotate([0, 180, 0]) hole_through("M3", l=thickness);
         }
     }
-    // bottom plate
+    // bottom part
     difference() {
-    translate([height - thickness + 2, 0, 0]) cube([2, width, lenght]);
-         // nozzle holes
-         for(i=[-1,1]) {
-            translate([height - thickness/2 + 2, width/2 + i*(14), lenght - nozzle_length - 2] ) cylinder(d=8, h=nozzle_length);
+        union() {
+            // bottom plate
+            difference() {
+            translate([height - thickness + 2, 0, 0]) cube([2, width, lenght]);
+                 // nozzle holes
+                 for(i=[-1,1]) {
+                    translate([height - thickness/2 + 2, width/2 + i*(14), lenght - nozzle_length - 2] ) cylinder(d=8, h=nozzle_length);
+                }
+            }
+            // bottom walls
+            difference() {
+                translate([height - thickness* 2, 0, thickness]) cube([6, width, lenght - thickness]);
+                translate([height - thickness* 2, 1, thickness]) cube([6, width - 2, lenght - thickness -1]);
+            }
+            // bottom "roof"
+            translate([height - thickness -3, 0, lenght - nozzle_length -1]) cube([1, width, nozzle_length]);
+            // "fork"
+            translate([height - 6, width/2, lenght - 10]) {
+                rotate([0, 90, 0]) cylinder(d=15, h=7);
+                translate([0, -15/2,0]) cube([7, 15, 10]);
+            }
+        }
+        translate([height - 15, width/2, lenght - 10]) {
+            rotate([0, 90, 0]) cylinder(d=13, h=20);
+            translate([0, -13/2,0]) cube([20, 13, 15]);
         }
     }
-    // bottom walls
-    difference() {
-        translate([height - thickness* 2, 0, thickness]) cube([6, width, lenght - thickness]);
-        translate([height - thickness* 2, 1, thickness]) cube([6, width - 2, lenght - thickness -1]);
-    }
-    // bottom "roof"
-    translate([height - thickness -3, 0, lenght - nozzle_length -1]) cube([1, width, nozzle_length]);
+
 
     // first funnel
     translate([height-20, width/2, thickness]) {
@@ -134,13 +149,13 @@ module fan_duct() {
     translate([height-17.5, width/2, thickness + 10]) {
         difference() {
             union() {
-                funnel(d1=39, d2=0, l=20, height=20, thickness=2, offset=[-11,0,0]);
+                funnel(d1=39, d2=0, l=20, height=20, thickness=2, offset=[-13,0,0]);
                 difference() {
                     translate([11.5, -width/2, 0]) cube([1,40,21]);
-                    funnel(d1=39, d2=0, l=20, height=20, thickness=100, offset=[-11,0,0]);
+                    funnel(d1=39, d2=0, l=20, height=20, thickness=100, offset=[-13,0,0]);
                 }
             }
-            # translate([12.5, -width/2, 0]) cube([25,40,20]);
+            translate([12.5, -width/2, 0]) cube([25,40,20]);
         }
     }
     /*// middle funnel*/
