@@ -27,10 +27,10 @@ include <fan.scad>
 
 include <funnel.scad>
 
-draw_carriage = 1;
+draw_carriage = 0;
 draw_belt_clamps = 0;
 draw_side_fan_duct = 0;
-draw_rear_fan_duct = 0;
+draw_rear_fan_duct = 1;
 
 belt_clamp_thickness=2;
 belt_clamp_width=m3_diameter+3*belt_clamp_thickness+2;
@@ -84,11 +84,13 @@ if (draw_rear_fan_duct == 1) {
 
 
 module fan_duct() {
-    thickness = 3;
+    thickness = 2;
     height = 56;
     width = 40;
     lenght =  50;
     nozzle_length = 15;
+    nozzle_height = 6;
+
     difference() {
         // main plate
         cube([height, width, thickness]);
@@ -99,7 +101,7 @@ module fan_duct() {
         }
         // fan hole
         translate([height-20, width/2, 0]) {
-            cylinder(d=38, h=thickness);
+            cylinder(d=36, h=thickness);
             // fan support holes
             for(i=[-1,1])
                 for(j=[-1,1])
@@ -107,12 +109,13 @@ module fan_duct() {
                           rotate([0, 180, 0]) hole_through("M3", l=thickness);
         }
     }
+
     // bottom part
     difference() {
         union() {
             // bottom plate
             difference() {
-            translate([height - thickness + 2, 0, 0]) cube([2, width, lenght]);
+            translate([height - thickness + 2, 0, 0]) cube([thickness, width, lenght]);
                  // nozzle holes
                  for(i=[-1,1]) {
                     translate([height - thickness/2 + 2, width/2 + i*(14), lenght - nozzle_length - 2] ) cylinder(d=8, h=nozzle_length);
@@ -120,11 +123,11 @@ module fan_duct() {
             }
             // bottom walls
             difference() {
-                translate([height - thickness* 2, 0, thickness]) cube([6, width, lenght - thickness]);
-                translate([height - thickness* 2, 1, thickness]) cube([6, width - 2, lenght - thickness -1]);
+                translate([height - nozzle_height, 0, thickness]) cube([nozzle_height, width, lenght - thickness]);
+                translate([height - nozzle_height, 1, thickness]) cube([nozzle_height, width - 2, lenght - thickness -1]);
             }
             // bottom "roof"
-            translate([height - thickness -3, 0, lenght - nozzle_length -1]) cube([1, width, nozzle_length]);
+            translate([height - nozzle_height, 0, lenght - nozzle_length - thickness * 2]) cube([thickness, width, nozzle_length + thickness * 2]);
             // "fork"
             translate([height - 6, width/2, lenght - 10]) {
                 rotate([0, 90, 0]) cylinder(d=15, h=7);
@@ -145,37 +148,27 @@ module fan_duct() {
             translate([34, 0, 0]) cube([40,40,20], center=true);
         }
     }
+
     // second funnel
     translate([height-17.5, width/2, thickness + 10]) {
         difference() {
             union() {
-                funnel(d1=39, d2=0, l=20, height=20, thickness=2, offset=[-13,0,0]);
+                funnel(d1=39, d2=0, l=18, height=20, thickness=2, offset=[-13,0,0]);
                 difference() {
-                    translate([11.5, -width/2, 0]) cube([1,40,21]);
+                    translate([11.5, -width/2, 0]) cube([thickness, width, 21]);
                     funnel(d1=39, d2=0, l=20, height=20, thickness=100, offset=[-13,0,0]);
                 }
             }
-            translate([12.5, -width/2, 0]) cube([25,40,20]);
+            translate([13.5, -width/2, -1]) cube([25, width,21]);
         }
     }
+
     /*// middle funnel*/
     /*translate([10, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=8, thickness=2);*/
     /*// top funnel*/
     /*translate([18, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=5, height=12, thickness=2, offset=[15, 0, 0]);*/
 
 
-    /*// nozzle*/
-    /*nozzle_length = 40;*/
-    /*translate([37, 0, 53]) {*/
-    /*    difference() {*/
-    /*        cube([15, nozzle_length, 8], center=true);*/
-    /*        cube([13, nozzle_length-2, 6], center=true);*/
-    /*        for(i=[-1,1]) {*/
-    /*            translate([0, i*(nozzle_length/2 - 7), 4]) rotate([0, 90, 0])  cylinder(d=6, h=15, center=true);*/
-    /*            translate([0, i*(nozzle_length/2 - 4), 4]) cube([15,6,6], center=true);*/
-    /*        }*/
-    /*    }*/
-    /*}*/
 }
 
 module side_fan_duct() {
