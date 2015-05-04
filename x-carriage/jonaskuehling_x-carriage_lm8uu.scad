@@ -20,7 +20,7 @@ include <configuration.scad>
 
 include <LM8UU_holder_ziptie.scad>
 
-include <nutsnbolts/cyl_head_bolt.scad>;
+include <nutsnbolts/cyl_head_bolt.scad>
 
 // Fan module
 include <fan.scad>
@@ -61,9 +61,9 @@ if (draw_carriage == 1) {
             rotate([90,0,0])
             % cylinder(h=base_length,r=4,$fs=1,center=true);
     // rear fan duct
-    translate([-body_width/2 -rod_dist/2 -body_wall_thickness, 20, 0]) {
+    translate([-body_width/2 -rod_dist/2 -body_wall_thickness/2, 20, 0]) {
         rotate([0, -90, 180]) fan_duct();
-        translate([-5.1, -20, 36]) rotate([0, 90, 0]) % fan(40,10.2);
+        translate([-5.1, -20, 30]) rotate([0, 90, 0]) % fan(40,10.2);
     }
 }
 
@@ -85,7 +85,7 @@ if (draw_rear_fan_duct == 1) {
 
 module fan_duct() {
     thickness = 2;
-    height = 56;
+    height = 52.5;
     width = 40;
     lenght =  50;
     nozzle_length = 15;
@@ -140,33 +140,39 @@ module fan_duct() {
         }
     }
 
-
-    // first funnel
-    translate([height-20, width/2, thickness]) {
-        difference() {
-            funnel(d1=40, d2=39, l=20, height=10, thickness=2, offset=[-100,0,0]);
-            translate([34, 0, 0]) cube([40,40,20], center=true);
-        }
-    }
-
-    // second funnel
-    translate([height-17.5, width/2, thickness + 10]) {
-        difference() {
-            union() {
-                funnel(d1=39, d2=0, l=18, height=20, thickness=2, offset=[-13,0,0]);
+    difference() {
+        union() {
+            // first funnel
+            translate([height-20, width/2, thickness]) {
                 difference() {
-                    translate([11.5, -width/2, 0]) cube([thickness, width, 21]);
-                    funnel(d1=39, d2=0, l=20, height=20, thickness=100, offset=[-13,0,0]);
+                    funnel(d1=40, d2=39, l=20, height=10, thickness=2, offset=[-100,0,0]);
+                    translate([34, 0, 0]) cube([40,40,20], center=true);
                 }
             }
-            translate([13.5, -width/2, -1]) cube([25, width,21]);
+
+            // second funnel
+            translate([height-17.5, width/2, thickness + 10]) {
+                difference() {
+                    union() {
+                        funnel(d1=39, d2=0, l=18, height=20, thickness=2, offset=[-13,0,0]);
+                        difference() {
+                            translate([11.5, -width/2, 0]) cube([thickness, width, 21]);
+                            funnel(d1=39, d2=0, l=20, height=20, thickness=100, offset=[-13,0,0]);
+                        }
+                    }
+                    translate([13.5, -width/2, -1]) cube([25, width,21]);
+                }
+            }
+            // reinforcement to prevent hole after rod clearance
+            translate([22, width/2, thickness + 10.5]) {
+                 cube([2,20,3], center=true);
+            }
+        }
+        // rod clearance
+         translate([14.5, width/2, thickness + 10]) {
+            rotate([90, 0, 0]) cylinder(d=10, h=30, center=true);
         }
     }
-
-    /*// middle funnel*/
-    /*translate([10, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=31, height=8, thickness=2);*/
-    /*// top funnel*/
-    /*translate([18, 0, 34.5]) rotate([0, 90, 0]) tube(d1=31, d2=5, height=12, thickness=2, offset=[15, 0, 0]);*/
 
 
 }
