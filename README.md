@@ -24,7 +24,8 @@ Working.
  * extruder idlers
  * belt clamps
  * two pairs of gears (big and small)
- * (*optional*) [Rear fan duct](http://www.thingiverse.com/thing:535374) or other fan duct with requires M3 holes at 15 mm spacing.
+ * two side fan ducts
+ * rear fan duct 
 
 ### X-Carriage
 
@@ -38,7 +39,7 @@ Working.
 ### Extruders
 
  * Setup is identical as the [original version](http://www.thingiverse.com/thing:18379)
- * insert some filament in the extruder so that it sticks through the underside and use that for alignment with the mount plate. Use two M4 bolts on each side, flat heads preferably but others may work. **The stepper motors should be on the inside**
+ * insert some filament in the extruder so that it sticks through the underside and use that for alignment with the mount plate. Use two M4 screws on each side, flat heads preferably but others may work. **The stepper motors should be on the inside**
 
 ![Extruders](pics/extruders.jpg)
 
@@ -46,10 +47,10 @@ Working.
 
 ![Carriage on rails](pics/carriage_on_rails.jpg)
 
- * screw in the fans and the rear fan duct with M3 bolts
+ * screw in the fans and the rear fan duct with M3 screws
  * put the x-carriage on top of the lm8uus on the x-axis rails, secure it with the zip-ties
- * add the belt clamps on either side and secure them with M3 bolts
+ * add the belt clamps on either side and secure them with M3 screws
  * put the hotends mount plate with the extruders attached on the x-carriage, the M4 bolt's heads should fit in the holes in the x-carriage, if not check for alignment.
- * secure it using two short M5 bolts using the two central slits on the mount plate
+ * secure it using two short M5 screws using the two central slits on the mount plate
 
 ![Assembled](pics/project.jpg)
