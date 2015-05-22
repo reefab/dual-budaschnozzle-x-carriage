@@ -14,8 +14,9 @@ module fan_duct() {
         cube([fanduct_height, fanduct_width, fanduct_wall_thickness]);
         // holes for affixing to the x-carriage
         for(i=[-1,1]) {
-                translate([body_wall_thickness + 1, fanduct_width/2 + i*rear_fan_duct_hole_spacing/2, 0])
-                     rotate([0, 180, 0]) hole_through("M3", l=fanduct_wall_thickness);
+                translate([body_wall_thickness + 3, fanduct_width/2 + i*rear_fan_duct_hole_spacing/2, fanduct_wall_thickness/2])
+                     rotate([0, 180, 0]) cube([7, 3+clearance, fanduct_wall_thickness + 1], center=true);
+                     /*hole_through("M3", l=fanduct_wall_thickness);*/
         }
         // fan hole
         translate([fanduct_height-20, fanduct_width/2, 0]) {
