@@ -36,8 +36,8 @@ module fan_duct() {
             difference() {
             translate([fanduct_height - fanduct_wall_thickness + 2, 0, 0]) cube([fanduct_wall_thickness, fanduct_width, fanduct_length]);
                  // nozzle holes
-                 for(i=[-1,1]) {
-                    translate([fanduct_height - fanduct_wall_thickness/2 + 2, fanduct_width/2 + i*(14), fanduct_length - nozzle_length - 2] ) cylinder(d=8, h=nozzle_length);
+                 for(i=[0,1]) {
+                    translate([fanduct_height + fanduct_wall_thickness, i* fanduct_width, fanduct_length - nozzle_length/2 - 2] ) cube([9, 9, nozzle_length], center=true);
                 }
             }
             // bottom walls
