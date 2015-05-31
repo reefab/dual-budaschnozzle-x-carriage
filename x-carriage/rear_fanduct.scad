@@ -3,9 +3,10 @@
 fanduct_wall_thickness = 2;
 fanduct_height = 52.5;
 fanduct_width = 40;
-fanduct_length =  50;
-nozzle_length = 15;
+fanduct_length =  52;
+nozzle_length = 25;
 nozzle_height = 6;
+fork_offset = 13;
 
 module fan_duct() {
 
@@ -33,29 +34,28 @@ module fan_duct() {
     difference() {
         union() {
             // bottom plate
-            difference() {
             translate([fanduct_height - fanduct_wall_thickness + 2, 0, 0]) cube([fanduct_wall_thickness, fanduct_width, fanduct_length]);
-                 // nozzle holes
-                 for(i=[0,1]) {
-                    translate([fanduct_height + fanduct_wall_thickness, i* fanduct_width, fanduct_length - nozzle_length/2 - 2] ) cube([9, 9, nozzle_length], center=true);
-                }
-            }
             // bottom walls
             difference() {
                 translate([fanduct_height - nozzle_height, 0, fanduct_wall_thickness]) cube([nozzle_height, fanduct_width, fanduct_length - fanduct_wall_thickness]);
                 translate([fanduct_height - nozzle_height, 1, fanduct_wall_thickness]) cube([nozzle_height, fanduct_width - 2, fanduct_length - fanduct_wall_thickness -1]);
             }
             // bottom "roof"
-            translate([fanduct_height - nozzle_height, 0, fanduct_length - nozzle_length - fanduct_wall_thickness * 2]) cube([fanduct_wall_thickness, fanduct_width, nozzle_length + fanduct_wall_thickness * 2]);
-            // "fork"
-            translate([fanduct_height - 6, fanduct_width/2, fanduct_length - 10]) {
-                rotate([0, 90, 0]) cylinder(d=15, h=7);
-                translate([0, -15/2,0]) cube([7, 15, 10]);
+            translate([fanduct_height - nozzle_height, 0, fanduct_length - nozzle_length - fanduct_wall_thickness * 2 +10])  cube([fanduct_wall_thickness, fanduct_width, nozzle_length + fanduct_wall_thickness * 2 -10]);
+            // "fork" walls
+            translate([fanduct_height - 6, fanduct_width/2, fanduct_length - fork_offset]) {
+                rotate([0, 90, 0])  cylinder(d=15, h=7);
+                translate([0, -15/2,0]) cube([7, 15, fork_offset]);
             }
         }
-        translate([fanduct_height - 15, fanduct_width/2, fanduct_length - 10]) {
+        // nozzle holes
+        for(i=[0,1]) {
+            translate([fanduct_height + fanduct_wall_thickness, i* fanduct_width, fanduct_length - nozzle_length/2 - 2] ) cube([9, 9, nozzle_length], center=true);
+        }
+        // fork hole
+        translate([fanduct_height - 15, fanduct_width/2, fanduct_length - fork_offset]) {
             rotate([0, 90, 0]) cylinder(d=13, h=20);
-            translate([0, -13/2,0]) cube([20, 13, 15]);
+            translate([0, -13/2,0])  cube([20, 13, fork_offset]);
         }
     }
 
