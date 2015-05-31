@@ -29,11 +29,13 @@ include <carriage.scad>
 include <belt_clamp.scad>
 include <side_fanduct.scad>
 include <rear_fanduct.scad>
+include <cooling.scad>
 
 draw_carriage = 1;
 draw_belt_clamps = 0;
-draw_side_fan_duct = 1;
-draw_rear_fan_duct = 1;
+draw_side_fan_duct = 0;
+draw_rear_fan_duct = 0;
+draw_cooling_duct = 1;
 
 base_length = 110;
 rod_dist = 50;
@@ -69,6 +71,15 @@ if (draw_carriage == 1) {
             translate([-5.1, -20, 30]) rotate([0, 90, 0]) % fan(40,10.2);
         }
     }
+    if (draw_cooling_duct == 1) {
+        for (i=[-1,1]) {
+            translate([i* (rod_dist/2 + body_width/2 + 5), 0, 28]) {
+                rotate([0, 90, 0]) % fan(40,10.2);
+            }
+        }
+        translate([0,0,40]) cooling_duct();
+        /* translate([-rod_dist/2 -body_width/2, -base_length/2, 30]) cooling_duct(); */
+    }
 }
 
 module mount_plate()
@@ -93,6 +104,10 @@ if (draw_side_fan_duct == 1 && draw_carriage == 0) {
 
 if (draw_rear_fan_duct == 1 && draw_carriage == 0) {
     fan_duct();
+}
+
+if (draw_cooling_duct == 1 && draw_carriage == 0) {
+    cooling_duct();
 }
 
 clearance=0.7;
