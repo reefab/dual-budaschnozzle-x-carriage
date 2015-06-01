@@ -13,12 +13,11 @@ module cooling_duct() {
                     rotate([90, 0, -i*90]) quarter_sphere(18.5);
                 }
             }
-
         }
 
         for (i=[-1, 1]) {
             // hotend nozzle holes
-            translate([0, i*(hotends_spacing -8)/2, 0]) cube([hole_x, hole_y, duct_height], center=true);
+            translate([0, i*(hotends_spacing -8)/2, -5]) cube([hole_x, hole_y, duct_height+1], center=true);
 
             // fan holes
             translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) difference() {
@@ -31,16 +30,24 @@ module cooling_duct() {
 
             // carving inside space
             for(j=[-1,1]) {
-                translate([i*17.5, j*3, 0]) quarter_pipe([33, 4, duct_height - body_wall_thickness], center=true, flip=i);
+                translate([i*17.5, j*3, 0])  quarter_pipe([33, 4, duct_height - body_wall_thickness], center=true, flip=i);
                 translate([i*17.5, j*46, 0]) quarter_pipe([33, 4, duct_height - body_wall_thickness], center=true, flip=i);
                 translate([i*25, j*(base_length/4 -3), 0]) quarter_pipe([18, base_length/2 - 15, duct_height - body_wall_thickness], center=true, flip=i);
             }
 
             // fanduct nozzle holes
-            for(j=[-1,1]) {
-                translate([i*10, j*3,  duct_height/2])  cube([18, 4, body_wall_thickness], center=true);
-                translate([i*10, j*46, duct_height/2])  cube([18, 4, body_wall_thickness], center=true);
-                translate([i*18, j*(base_length/4 - 3), duct_height/2]) cube([4, base_length/2 - 8, body_wall_thickness], center=true);
+            /* for(j=[-1,1]) { */
+            /*     translate([i*10, j*3,  duct_height/2])  cube([18, 4, body_wall_thickness], center=true); */
+            /*     translate([i*10, j*46, duct_height/2])  cube([18, 4, body_wall_thickness], center=true); */
+            /*     translate([i*18, j*(base_length/4 - 3), duct_height/2]) cube([4, base_length/2 - 8, body_wall_thickness], center=true); */
+            /* } */
+
+            // fanduct nozzle holes
+            for(i=[-1,1]) {
+                translate([0, i*hotends_spacing/2, duct_height/2 - 3]) {
+                      cylinder(d=35, h=3.1);
+                      translate([0,0, -7]) cylinder(d1=23, d2=18, h=15);
+                }
             }
 
             for(j=[-1,1]) {
@@ -57,6 +64,14 @@ module cooling_duct() {
             }
         }
     }
+    for(i=[-1,1]) {
+        translate([0, i*hotends_spacing/2, duct_height/2 - 3])
+            difference() {
+                 cylinder(d1=25, d2=20, h=3);
+                 translate([0,0, -7]) cylinder(d1=23, d2=18, h=15);
+            }
+    }
+
 }
 
 module quarter_pipe(dimensions, radius=10, center=true, flip=1) {
