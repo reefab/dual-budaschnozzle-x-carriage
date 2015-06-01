@@ -21,7 +21,13 @@ module cooling_duct() {
             translate([0, i*(hotends_spacing -8)/2, 0]) cube([hole_x, hole_y, duct_height], center=true);
 
             // fan holes
-            translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) rotate ([0, 90, 0]) sphere(d=37-body_wall_thickness);
+            translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) difference() {
+                sphere(d=37-body_wall_thickness);
+                translate([0, 0, -15]) cube([25, 30, 10], center=true);
+            }
+
+            // rod clearance
+            translate([i * rod_dist/2, 0, -27]) cube([15, 30, 10], center=true);
 
             // carving inside space
             for(j=[-1,1]) {
@@ -41,12 +47,12 @@ module cooling_duct() {
                 // front/back fan holes
                 translate([ i*(body_width/2 + rod_dist/2 - body_wall_thickness), j*fan_hole_spacing/2, duct_height/2 -3]) rotate([0, -90, 0]) {
                     /* # nutcatch_sidecut("M3", l=4); */
-                    # cylinder(d=3+clearance, h=15, center=true);
+                    cylinder(d=3+clearance, h=15, center=true);
                 }
                 // side fans holes
                 translate([i * fan_hole_spacing/2, j*(base_length/2 - body_wall_thickness) + 1.5, -duct_height/2 + 3]) rotate([0, 90, 90]) {
-                    # nutcatch_sidecut("M3", l=4);
-                    # cylinder(d=3+clearance, h=15, center=true);
+                    nutcatch_sidecut("M3", l=4);
+                    cylinder(d=3+clearance, h=15, center=true);
                 }
             }
         }
