@@ -28,19 +28,18 @@ module cooling_duct() {
             // rod clearance
             translate([i * rod_dist/2, 0, -27]) cube([15, 30, 10], center=true);
 
-            // carving inside space
+            // interior duct works
             translate([i*23.5, i*18.5, 0.5]) quarter_pipe([16, 37, duct_height - body_wall_thickness], center=true, flip=i);
             translate([i*23.5, i*40, 0.5]) rotate([i*90, 0, 0]) quarter_pipe([16, duct_height - body_wall_thickness, 10], center=true, flip=-i);
             translate([i*17.5, i*29, duct_height/2 -2 ]) rotate([0,0,0]) cube([10, 32, 2], center=true);
             translate([i*12.5, i*6.5, duct_height/2 -2 ]) rotate([0,0,0]) cube([35.5, 10, 2], center=true);
             translate([i*0, i*8, duct_height/2 -2 ]) rotate([0,0,0]) cube([10, 10, 2], center=true);
 
-            // fanduct nozzle holes
-            /* for(j=[-1,1]) { */
-            /*     translate([i*10, j*3,  duct_height/2])  cube([18, 4, body_wall_thickness], center=true); */
-            /*     translate([i*10, j*46, duct_height/2])  cube([18, 4, body_wall_thickness], center=true); */
-            /*     translate([i*18, j*(base_length/4 - 3), duct_height/2]) cube([4, base_length/2 - 8, body_wall_thickness], center=true); */
-            /* } */
+            // let's call them speed holes
+            translate([i*26, i*-(base_length/4 + 6), 0]) cube([15, base_length/2 -25, duct_height + 1], center=true);
+            translate([0, i*-(base_length/2 - body_wall_thickness), 0]) cube([20, 10, duct_height + 1], center=true);
+            translate([0, 0, -5]) cube([30, 16, duct_height + 1], center=true);
+
 
             // fanduct nozzle holes
              for(i=[-1,1]) {
@@ -53,7 +52,6 @@ module cooling_duct() {
             for(j=[-1,1]) {
                 // front/back fan holes
                 translate([ i*(body_width/2 + rod_dist/2 - body_wall_thickness), j*fan_hole_spacing/2, duct_height/2 -3]) rotate([0, -90, 0]) {
-                    /* # nutcatch_sidecut("M3", l=4); */
                     cylinder(d=2.7, h=15, center=true, $fn=10);
                 }
                 // side fans holes
