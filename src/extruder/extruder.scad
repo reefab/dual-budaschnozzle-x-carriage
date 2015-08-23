@@ -159,7 +159,7 @@ module wade (hotend_mount=0,legacy_mount=false){
             // Filler between wade block and motor mount.
             translate([12,motor_mount_translation[1]-hole_for_608/2-elevation - 20,0])
             cube([wade_block_width+extra_gear_separation + 3.5,
-                wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 24,
+                wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 19,
                 motor_mount_thickness]);
 
             // Connect block to top of motor mount.
