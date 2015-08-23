@@ -22,21 +22,6 @@ reprapfaborg_mount=512; // http://reprap-fab.org hotend with 10mm PEEK insulator
 //Set the hotend_mount to the sum of the hotends that you want the extruder to support:
 //e.g. wade(hotend_mount=groovemount+peek_reprapsource_mount);
 
-//Set motor- and bolt-elevation for additional clearance when using e.g. 9/47 gears like in http://www.thingiverse.com/thing:11152
-elevation=10;
-
-//Set extra gear separation when using slightly bigger non-standard gears like 9/47 herringbone gears
-extra_gear_separation=2;
-
-// Nut wrench sizes ISO 4032
-m3_wrench = 5.5;
-m4_wrench = 7;
-
-// Adjust for deeper groove in hobbed bolt, so that idler is still vertical when tightened
-// Values like 0.5 to 1 should work, the more, the closer the idler will move to the bolt
-// Sometimes the idler will be slightly angled towards the bolt which causes the idler screws
-// to slip off the slots in die idler to the top.. Adjusting this should help:
-less_idler_bolt_dist = 0;
 
 
 ////////// RENDER EXTRUDER //////////////////////////////////////////////////////////////
@@ -129,42 +114,6 @@ less_idler_bolt_dist = 0;
 
 //===================================================
 // Parameters defining the wade body:
-wade_block_height=55+elevation;
-wade_block_width=24;
-wade_block_depth=28;
-
-block_bevel_r=6;
-
-wade_base_thickness=7;
-wade_base_length=70;
-base_leadout=25;
-
-nema17_hole_spacing=1.2*25.4; 
-nema17_width=1.7*25.4;
-nema17_support_d=nema17_width-nema17_hole_spacing;
-
-screw_head_recess_diameter=7.2;
-screw_head_recess_depth=3;
-
-motor_mount_rotation=45;
-motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
-motor_mount_thickness=8;
-
-m8_clearance_hole=8.8;
-hole_for_608=22.6;
-608_diameter=22;
-
-block_top_right=[wade_block_width,wade_block_height];
-
-layer_thickness=0.2;
-filament_feed_hole_d=3.5;
-filament_diameter=3;
-filament_feed_hole_offset=filament_diameter+1.5;
-idler_nut_trap_depth=7.3;
-idler_nut_thickness=3.7;
-
-gear_separation=7.4444+32.0111+0.25+extra_gear_separation;
-
 function motor_hole(hole)=[motor_mount_translation[0],motor_mount_translation[1]] +
     rotated(45+motor_mount_rotation+hole*90)*nema17_hole_spacing/sqrt(2);
 
@@ -208,9 +157,9 @@ module wade (hotend_mount=0,legacy_mount=false){
             cube([wade_block_width,wade_block_height,wade_block_depth]);
 
             // Filler between wade block and motor mount.
-            translate([10,motor_mount_translation[1]-hole_for_608/2-elevation,0])
-            cube([wade_block_width+extra_gear_separation + 4,
-                wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation,
+            translate([12,motor_mount_translation[1]-hole_for_608/2-elevation - 20,0])
+            cube([wade_block_width+extra_gear_separation + 3.5,
+                wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 24,
                 motor_mount_thickness]);
 
             // Connect block to top of motor mount.
@@ -223,14 +172,6 @@ module wade (hotend_mount=0,legacy_mount=false){
                 wade_base_thickness/2],motor_hole(2),wade_base_thickness/2,
                 nema17_support_d/2,100,60);
 
-            // Round the ends of the base
-            translate([wade_base_length-base_leadout,wade_base_thickness/2,0])
-            cylinder(r=wade_base_thickness/2,h=wade_block_depth,$fn=20);
-
-            translate([-base_leadout,wade_base_thickness/2,0])
-            cylinder(r=wade_base_thickness/2,h=wade_block_depth,$fn=20);
-
-            //Provide the bevel betweeen the base and the wade block.
             render()
             difference(){
                 translate([-block_bevel_r,0,0])
