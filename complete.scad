@@ -27,8 +27,8 @@ if (draw_complete == 1) {
             % cylinder(h=base_length*2,r=4,$fs=1,center=true);
 
     // Belt
-    translate([40, 0, 9])
-        % cube([5, base_length * 2, 18], center=true);
+    translate([40, 0, belt_loop_height/2])
+        % cube([5, base_length * 2, belt_loop_height], center=true);
 
     // Front/back fans
     for (i=[-1,1])

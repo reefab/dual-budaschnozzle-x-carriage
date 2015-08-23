@@ -107,6 +107,8 @@ screw_hole_r=4/2;
 
 mount_plate_thickness = 5;
 
+belt_loop_height = 18;
+
 extruder_color = "SteelBlue";
 carriage_color = "DimGray";
 fanduct_color = "ForestGreen";
