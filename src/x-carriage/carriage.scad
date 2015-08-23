@@ -96,9 +96,9 @@ module mount_plate()
 {
     rotate([180, 0, 0]) union()
     {
-        cube([71, 85, 5], center = true);
-        translate([0, hotends_spacing/2, -44]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
-        translate([0, -hotends_spacing/2, -44]) rotate([0, 0, 0]) import("Budaschnozzle.stl");
+        cube([71, 85, mount_plate_thickness], center = true);
+        translate([0, hotends_spacing/2, -44]) rotate([0, 0, 180]) import("src/external_stl/Budaschnozzle.stl");
+        translate([0, -hotends_spacing/2, -44]) rotate([0, 0, 0]) import("src/external_stl/Budaschnozzle.stl");
     }
 }
 
