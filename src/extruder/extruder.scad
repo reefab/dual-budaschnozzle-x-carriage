@@ -327,7 +327,7 @@ module block_holes(legacy_mount=false){
         translate([-gear_separation,0,0]){
             rotate([0,180,0])
             translate([0,0,1])
-            import("wade-large.stl");
+            % import("src/external_stl/biggearmod_fixed.stl");
 
             // Open the top to remove overhangs and to provide access to the hobbing.
             /* translate([-wade_block_width+2,0,9.5]) */
@@ -365,19 +365,8 @@ module block_holes(legacy_mount=false){
             // PTFE tube holder
             translate([-filament_feed_hole_offset, 21,wade_block_depth/2])
             rotate([90,0,0])
-            cylinder(d=ptfe_tube_dia, h=10, center=true);
+            cylinder(d=ptfe_tube_dia, h=10, center=true, $fn=16);
 
-            //Widened opening for hobbed bolt access.
-            // EDIT jonaskuehling: removed for better stability around tilt screw nut traps
-/*          translate([2,wade_block_height/2+2,wade_block_depth/2+0.2])
-            rotate([90,0,0])
-            rotate(-45)
-            union(){
-                cylinder(r=5,h=wade_block_height,center=true,$fn=30);   
-                translate([-5,0,0])
-                cube([10,10,wade_block_height],center=true);
-            }
-*/
             // Mounting holes on the base.
             translate(legacy_mount?[-3.4,0,-1]:[0,0,0])
             for (mount=[0:1]){
@@ -396,8 +385,9 @@ module block_holes(legacy_mount=false){
             }
 
         }
-%       translate([0,0,-8])
-        import("wade-small.stl");
+%       translate([0,0,8])
+        rotate([180, 0, 0])
+        % import("src/external_stl/smallgearmod_fixed.stl");
     }
 
     // Idler mounting holes and nut traps.
@@ -417,8 +407,8 @@ module block_holes(legacy_mount=false){
                 nut_trap(m4_wrench,idler_nut_thickness);
             }
             // nut slots
-            translate([0,10/2,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
-            cube([m4_wrench+0.4,10,idler_nut_thickness],center=true);
+            translate([0,15/2,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
+             cube([m4_wrench+0.4,15,idler_nut_thickness],center=true);
 
             // screw holes 30°
             for(tilt=[1:6]){

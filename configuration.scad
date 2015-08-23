@@ -68,9 +68,6 @@ mount_plate_thickness = 5;
 
 belt_loop_height = 18;
 
-extruder_color = "SteelBlue";
-carriage_color = "DimGray";
-fanduct_color = "ForestGreen";
 
 // Extruder options
 
@@ -126,3 +123,7 @@ idler_nut_thickness=3.7;
 gear_separation=7.4444+32.0111+0.25+extra_gear_separation;
 
 ptfe_tube_dia = 6;
+
+extruder_color = "SteelBlue";
+carriage_color = "DimGray";
+fanduct_color = "ForestGreen";

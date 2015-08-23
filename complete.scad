@@ -65,7 +65,6 @@ if (draw_cooling_duct == 1 && draw_complete == 0) {
 if (draw_extruder == 1 && draw_complete == 0) {
     translate([30, 2, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
     translate([30, -2, 0]) mirror([0, 1, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
-    translate([41, 46, 0]) rotate([180, 0 ,105]) % import("src/external_stl/biggearmod_fixed.stl");
 }
 
 if (draw_idler == 1 && draw_complete == 0) {
