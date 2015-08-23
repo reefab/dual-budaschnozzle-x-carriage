@@ -330,16 +330,16 @@ module block_holes(legacy_mount=false){
             import("wade-large.stl");
 
             // Open the top to remove overhangs and to provide access to the hobbing.
-            translate([-wade_block_width+2,0,9.5])
-            cube([wade_block_width,
-                wade_block_height-motor_mount_translation[1]+1,
-                wade_block_depth]);
+            /* translate([-wade_block_width+2,0,9.5]) */
+            /*  cube([wade_block_width, */
+            /*     wade_block_height-motor_mount_translation[1]+1, */
+            /*     wade_block_depth]); */
 
             // Open 30° slot for idler screws to avoid overhang at top corner
-            translate([-wade_block_width+2,idler_mounting_hole_up-(idler_mounting_hole_diameter/2),wade_block_depth/2-idler_mounting_hole_across-((idler_mounting_hole_diameter*cos(180/6))/2)])
-            cube([wade_block_width,
-                wade_block_height-motor_mount_translation[1]+1,
-                wade_block_depth]);
+            /* translate([-wade_block_width+2,idler_mounting_hole_up-(idler_mounting_hole_diameter/2),wade_block_depth/2-idler_mounting_hole_across-((idler_mounting_hole_diameter*cos(180/6))/2)]) */
+            /*  cube([wade_block_width, */
+            /*     wade_block_height-motor_mount_translation[1]+1, */
+            /*     wade_block_depth]); */
         
             translate([0,0,-1])
             b608(h=9);
@@ -361,6 +361,11 @@ module block_holes(legacy_mount=false){
             rotate([90,0,0])
             rotate(360/16)
             cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=8);  
+
+            // PTFE tube holder
+            translate([-filament_feed_hole_offset, 21,wade_block_depth/2])
+            rotate([90,0,0])
+            cylinder(d=ptfe_tube_dia, h=10, center=true);
 
             //Widened opening for hobbed bolt access.
             // EDIT jonaskuehling: removed for better stability around tilt screw nut traps
