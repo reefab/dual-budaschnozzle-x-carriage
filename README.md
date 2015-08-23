@@ -1,7 +1,7 @@
 dual-budaschnozzle-x-carriage
 =============================
 
-![Final picture](pics/project.jpg)
+![Final picture](pics/render.png)
 
 A X-carriage for the [Geetech Dual-head Hotend](http://www.geeetech.com/dualhead-hotend-extruder-0350405mm-nozzle-for-3mm-filament-p-749.html) which uses two budaschnozzles.
 
