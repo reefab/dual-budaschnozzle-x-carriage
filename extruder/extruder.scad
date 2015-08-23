@@ -162,7 +162,7 @@ nema17_support_d=nema17_width-nema17_hole_spacing;
 screw_head_recess_diameter=7.2;
 screw_head_recess_depth=3;
 
-motor_mount_rotation=25;
+motor_mount_rotation=45;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
 

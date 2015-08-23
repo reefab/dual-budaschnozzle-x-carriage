@@ -14,10 +14,8 @@ module simonkuehling_x_carriage()
                 translate([i*(rod_dist/2+body_width/2-body_wall_thickness/2),0,body_wall_thickness]) cube([body_wall_thickness, base_length,body_wall_thickness * 2], center=true);
                 // center mounting holes nuttrap support
                 translate([i*rod_dist/2, 0, body_wall_thickness]) cube([20, 25, body_wall_thickness * 2], center=true);
-                // rear fan duct holes support
-                translate([-(rod_dist/2 + body_width/2) + body_wall_thickness, 0, body_wall_thickness * 2]) cube([6, 25, body_wall_thickness], center=true);
                 // side wall
-                translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness+1]) rotate([0,0,90])  
+                translate([0,i*(base_length/2 - body_wall_thickness),body_wall_thickness+1]) rotate([0,0,90])
                      cube([body_wall_thickness*2,rod_dist-10, 2*body_wall_thickness], center=true);
             }
             // central support beam
@@ -34,7 +32,7 @@ module simonkuehling_x_carriage()
             {
                 for (i=[-1,1])
                     translate([-25-13.5-1,i*(base_length/2 - belt_clamp_width/2),0])
-                        rotate(90*(i+1)+180) 
+                        rotate(90*(i+1)+180)
                         belt_clamp_socket ();
                 // clearance for the lm8uu holders
                 for (i=[-1,1])
@@ -84,18 +82,9 @@ module simonkuehling_x_carriage()
                 translate([i*fan_hole_spacing/2, j*(base_length/2 - body_wall_thickness)-1, 3])
                     rotate([90, 90, 0]) nutcatch_sidecut("M3", l=10);
                 translate([i*fan_hole_spacing/2, j*base_length/2 - 5, 3])
-                    rotate([90,0,0]) 
+                    rotate([90,0,0])
                       hole_through("M3", l=10);
             }
-        }
-        // rear fan duct traps and holes
-        for (i=[-1,1]) {
-                translate([-(body_width/2 + rod_dist/2) + 2*body_wall_thickness, i*rear_fan_duct_hole_spacing/2, body_wall_thickness + 1]) {
-                    rotate([0, 90, 0]) {
-                        hole_through("M3", l=10);
-                        nutcatch_sidecut("M3", l=10);
-                    }
-                }
         }
 
 
@@ -103,5 +92,26 @@ module simonkuehling_x_carriage()
 
 }
 
+module mount_plate()
+{
+    rotate([180, 0, 0]) union()
+    {
+        cube([71, 85, 5], center = true);
+        translate([0, hotends_spacing/2, -44]) rotate([0, 0, 180]) import("Budaschnozzle.stl");
+        translate([0, -hotends_spacing/2, -44]) rotate([0, 0, 0]) import("Budaschnozzle.stl");
+    }
+}
 
+function triangulate (point1, point2, length1, length2) =
+point1 +
+length1*rotated(
+        atan2(point2[1]-point1[1],point2[0]-point1[0])+
+        angle(distance(point1,point2),length1,length2));
 
+function distance(point1,point2)=
+sqrt((point1[0]-point2[0])*(point1[0]-point2[0])+
+        (point1[1]-point2[1])*(point1[1]-point2[1]));
+
+function angle(a,b,c) = acos((a*a+b*b-c*c)/(2*a*b));
+
+function rotated(a)=[cos(a),sin(a),0];
