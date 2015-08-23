@@ -3,7 +3,7 @@ include <configuration.scad>
 
 include <src/x-carriage/LM8UU_holder_ziptie.scad>
 
-include <src/x-carriage/nutsnbolts/cyl_head_bolt.scad>
+include <src/nutsnbolts/cyl_head_bolt.scad>
 
 // Fan module, for display only
 include <src/x-carriage/fan.scad>
@@ -25,6 +25,11 @@ if (draw_complete == 1) {
         translate([25* i, 0, -(LM8UU_dia/2+body_wall_thickness+4)])
             rotate([90,0,0])
             % cylinder(h=base_length*2,r=4,$fs=1,center=true);
+
+    // Belt
+    translate([40, 0, 9])
+        % cube([5, base_length * 2, 18], center=true);
+
     // Front/back fans
     for (i=[-1,1])
         translate([i* (rod_dist/2 + body_width/2 + 5), 0, -33])
@@ -53,13 +58,13 @@ if (draw_cooling_duct == 1 && draw_carriage == 0) {
     rotate([180, 0, 0]) cooling_duct();
 }
 
-if (draw_extruder == 1) {
+if (draw_extruder == 1 && draw_carriage == 0) {
     translate([30, 2, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
     translate([30, -2, 0]) mirror([0, 1, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
     translate([41, 46, 0]) rotate([180, 0 ,105]) % import("src/external_stl/biggearmod_fixed.stl");
 }
 
-if (draw_idler == 1) {
+if (draw_idler == 1 && draw_carriage == 0) {
     rotate([0,-90,0])
         wadeidler();
     mirror ([0, 1, 0])

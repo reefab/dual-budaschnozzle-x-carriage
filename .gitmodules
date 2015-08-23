@@ -1,0 +1,3 @@
+[submodule "src/nutsnbolts"]
+	path = src/nutsnbolts
+	url = git@github.com:JohK/nutsnbolts.git
