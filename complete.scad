@@ -48,23 +48,27 @@ if (draw_complete == 1) {
 }
 
 
-if (draw_belt_clamps == 1 && draw_carriage == 0) {
+if (draw_carriage == 1 && draw_complete == 0) {
+    simonkuehling_x_carriage();
+}
+
+if (draw_belt_clamps == 1 && draw_complete == 0) {
     for (i=[-1,1])
         translate([0,i*(28),0])
             belt_clamp();
 }
 
-if (draw_cooling_duct == 1 && draw_carriage == 0) {
+if (draw_cooling_duct == 1 && draw_complete == 0) {
     rotate([180, 0, 0]) cooling_duct();
 }
 
-if (draw_extruder == 1 && draw_carriage == 0) {
+if (draw_extruder == 1 && draw_complete == 0) {
     translate([30, 2, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
     translate([30, -2, 0]) mirror([0, 1, 0]) wade(hotend_mount=groovemount, legacy_mount=false);
     translate([41, 46, 0]) rotate([180, 0 ,105]) % import("src/external_stl/biggearmod_fixed.stl");
 }
 
-if (draw_idler == 1 && draw_carriage == 0) {
+if (draw_idler == 1 && draw_complete == 0) {
     rotate([0,-90,0])
         wadeidler();
     mirror ([0, 1, 0])

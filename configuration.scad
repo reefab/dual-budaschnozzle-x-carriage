@@ -1,24 +1,12 @@
-// PRUSA Mendel
-// Configuration file
-// GNU GPL v2
-// Josef Průša
-// josefprusa@me.com
-// prusadjs.cz
-// http://www.reprap.org/wiki/Prusa_Mendel
-// http://github.com/prusajr/PrusaMendel
-
-// PLEASE SELECT ONE OF THE CONFIGURATIONS BELOW
-// BY UN-COMMENTING IT
+// Rendering options
+draw_complete = 1;
+draw_belt_clamps = 0;
+draw_cooling_duct = 0;
+draw_extruder= 0;
+draw_idler = 0;
+draw_carriage = 0;
 
 variant=0; //0 for metric
-//variant=1; //1 for SAE
-if(variant==0){
-echo("variant: metric");
-}else if(variant==1){
-echo("variant: sae");
-} else{
-echo("WARNING: INVALID CONFIGURATION");
-}
 
 
 vars=[
@@ -37,15 +25,6 @@ bushing_type = 2;
 round_corner_diameter = 8;
 
 //Thin wall size
-/* layer_height = 0.2; */
-/* perimeter_width_over_thicknes = 1.6; */
-/* infill_widht_over_thickness = 1.55; */
-/* thin_wall = 2*(perimeter_width_over_thicknes*layer_height+infill_widht_over_thickness*layer_height); */
-/* if(thin_wall<2){ */
-/* 	echo("Check thin wall size, its below 2mm!"); */
-/* } */
-/* echo("thin wall thickness:"); */
-/* echo(thin_wall); */
 thin_wall = 3;
 
 //DO NOT TOUCH THIS SECTION!
@@ -62,27 +41,7 @@ bushing_rodsize = vars[variant][8];
 bushing_outerDiameter = vars[variant][9];
 bushing_lenght = vars[variant][10];
 
-
-// MINI-HUXLEY VERSION (TODO, just place holder)
-// include <configuration-huxley.scad>
-
-// MEGA VERSION (TODO, just place holder)
-// include <configuration-mega.scad>
-
-
-// Some basic functions, probably should be somewhere else
-module roundcorner(diameter){
-	difference(){
-		cube(size = [diameter,diameter,99], center = false);
-		translate(v = [diameter, diameter, 0]) cylinder(h = 100, r=diameter, center=true);
-	}
-}
-
-draw_complete = 1;
-draw_belt_clamps = 0;
-draw_cooling_duct = 0;
-draw_extruder= 0;
-draw_idler = 0;
+// X-carriage options
 
 base_length = 110;
 rod_dist = 50;
@@ -112,3 +71,58 @@ belt_loop_height = 18;
 extruder_color = "SteelBlue";
 carriage_color = "DimGray";
 fanduct_color = "ForestGreen";
+
+// Extruder options
+
+//Set motor- and bolt-elevation for additional clearance when using e.g. 9/47 gears like in http://www.thingiverse.com/thing:11152
+elevation=10;
+
+//Set extra gear separation when using slightly bigger non-standard gears like 9/47 herringbone gears
+extra_gear_separation=2;
+
+// Nut wrench sizes ISO 4032
+m3_wrench = 5.5;
+m4_wrench = 7;
+
+// Adjust for deeper groove in hobbed bolt, so that idler is still vertical when tightened
+// Values like 0.5 to 1 should work, the more, the closer the idler will move to the bolt
+// Sometimes the idler will be slightly angled towards the bolt which causes the idler screws
+// to slip off the slots in die idler to the top.. Adjusting this should help:
+less_idler_bolt_dist = 0;
+wade_block_height=60+elevation;
+wade_block_width=24;
+wade_block_depth=28;
+
+block_bevel_r=6;
+
+wade_base_thickness=7;
+wade_base_length=71;
+base_leadout=29.5;
+
+nema17_hole_spacing=1.2*25.4;
+nema17_width=1.7*25.4;
+nema17_support_d=nema17_width-nema17_hole_spacing;
+
+screw_head_recess_diameter=7.2;
+screw_head_recess_depth=3;
+
+motor_mount_rotation=45;
+motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
+motor_mount_thickness=8;
+
+m8_clearance_hole=8.8;
+hole_for_608=22.6;
+608_diameter=22;
+
+block_top_right=[wade_block_width,wade_block_height];
+
+layer_thickness=0.2;
+filament_feed_hole_d=3.5;
+filament_diameter=3;
+filament_feed_hole_offset=filament_diameter+1.5;
+idler_nut_trap_depth=7.3;
+idler_nut_thickness=3.7;
+
+gear_separation=7.4444+32.0111+0.25+extra_gear_separation;
+
+ptfe_tube_dia = 6;
