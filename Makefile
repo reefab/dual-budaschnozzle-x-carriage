@@ -24,4 +24,4 @@ $(output_dir)dual-budda-idlers.stl: $(main) $(configuration_file) $(extruder_sou
 	$(oscad) -o $@ -D draw_complete=0 -D draw_carriage=0 -D draw_belt_clamps=0 -D draw_cooling_duct=0 -D draw_extruder=0 -D draw_idler=1 $(main)
 
 clean:
-	rm output_stl/*.stl
+	rm $(output_dir)*.stl
