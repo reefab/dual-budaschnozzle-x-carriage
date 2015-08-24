@@ -1,26 +1,27 @@
 oscad = /Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD
-carriage_source = x-carriage/main.scad
-extruder_source = extruder/jonaskuehling_gregs-wade-v3.scad
+main = complete.scad
+configuration_file = configuration.scad
+output_dir = output_stl/
+carriage_source = src/x-carriage/carriage.scad
+extruder_source = src/extruder/extruder.scad
+fanduct_source = src/fanduct/fanduct.scad
 
-all:dual-budda-xcarriage.stl dual-budda-extruders.stl dual-budda-idlers.stl dual-budda-beltclamps.stl dual-budda-side_fanduct.stl dual-budda-rear_fanduct.stl
+all:$(output_dir)dual-budda-xcarriage.stl $(output_dir)dual-budda-extruders.stl $(output_dir)dual-budda-idlers.stl $(output_dir)dual-budda-beltclamps.stl $(output_dir)dual-budda-fanduct.stl
 
-dual-budda-xcarriage.stl: $(carriage_source)
-	$(oscad) -o $@ -D draw_carriage=1 -D draw_belt_clamps=0 -D draw_side_fan_duct=0 -D draw_rear_fan_duct=0 $(carriage_source)
+$(output_dir)dual-budda-xcarriage.stl: $(main) $(configuration_file) $(carriage_source)
+	$(oscad) -o $@ -D draw_complete=0 -D draw_carriage=1 -D draw_belt_clamps=0 -D draw_cooling_duct=0 -D draw_extruder=0 -D draw_idler=0 $(main)
 
-dual-budda-beltclamps.stl: $(carriage_source)
-	$(oscad) -o $@ -D draw_carriage=0 -D draw_belt_clamps=1 -D draw_side_fan_duct=0 -D draw_rear_fan_duct=0 $(carriage_source)
+$(output_dir)dual-budda-beltclamps.stl: $(main) $(configuration_file) $(carriage_source)
+	$(oscad) -o $@ -D draw_complete=0 -D draw_carriage=0 -D draw_belt_clamps=1 -D draw_cooling_duct=0 -D draw_extruder=0 -D draw_idler=0 $(main)
 
-dual-budda-side_fanduct.stl: $(carriage_source)
-	$(oscad) -o $@ -D draw_carriage=0 -D draw_belt_clamps=0 -D draw_side_fan_duct=1 -D draw_rear_fan_duct=0 $(carriage_source)
+$(output_dir)dual-budda-fanduct.stl: $(main) $(configuration_file) $(fanduct_source)
+	$(oscad) -o $@ -D draw_complete=0 -D draw_carriage=0 -D draw_belt_clamps=0 -D draw_cooling_duct=1 -D draw_extruder=0 -D draw_idler=0 $(main)
 
-dual-budda-rear_fanduct.stl: $(carriage_source)
-	$(oscad) -o $@ -D draw_carriage=0 -D draw_belt_clamps=0 -D draw_side_fan_duct=0 -D draw_rear_fan_duct=1 $(carriage_source)
+$(output_dir)dual-budda-extruders.stl: $(main) $(configuration_file) $(extruder_source)
+	$(oscad) -o $@ -D draw_complete=0 -D draw_carriage=0 -D draw_belt_clamps=0 -D draw_cooling_duct=0 -D draw_extruder=1 -D draw_idler=0 $(main)
 
-dual-budda-extruders.stl: $(extruder_source)
-	$(oscad) -o $@ -D draw_extruder=1 -D draw_idler=0 $(extruder_source)
-
-dual-budda-idlers.stl: $(extruder_source)
-	$(oscad) -o $@ -D draw_extruder=0 -D draw_idler=1 $(extruder_source)
+$(output_dir)dual-budda-idlers.stl: $(main) $(configuration_file) $(extruder_source)
+	$(oscad) -o $@ -D draw_complete=0 -D draw_carriage=0 -D draw_belt_clamps=0 -D draw_cooling_duct=0 -D draw_extruder=0 -D draw_idler=1 $(main)
 
 clean:
-	rm *.stl
+	rm output_stl/*.stl
