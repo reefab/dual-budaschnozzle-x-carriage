@@ -481,8 +481,8 @@ module wadeidler(){
 //%translate([-9.7,59,14])
 //%cube([12,4,5],center=true);
 
-    guide_height=12.3;
-    guide_length=10;
+    guide_height=0;
+    guide_length=0;
 
     difference(){
         union(){
@@ -505,12 +505,12 @@ module wadeidler(){
         }
     
         //Filament Path 
-        translate(idler_axis+[2+guide_height,+idler_long_side-idler_long_bottom-guide_length/2,0]){
-            cube([7,guide_length+2,3.5],center=true);
-            translate([-7/2,0,0])
-            rotate([90,0,0])
-            cylinder(h=guide_length+4,r=3.5/2,center=true,$fn=16);
-        }
+        /* # translate(idler_axis+[2+guide_height,+idler_long_side-idler_long_bottom-guide_length/2,0]){ */
+        /*     cube([7,guide_length+2,3.5],center=true); */
+        /*     translate([-7/2,0,0]) */
+        /*     rotate([90,0,0]) */
+        /*     cylinder(h=guide_length+4,r=3.5/2,center=true,$fn=16); */
+        /* } */
 
 
         //Back of idler. Rueckseite glaetten
