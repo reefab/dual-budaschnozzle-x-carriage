@@ -167,10 +167,10 @@ module wade (hotend_mount=0,legacy_mount=false){
             barbell(block_top_right-[0,5],motor_hole(0),5,nema17_support_d/2,100,60);
 
             //Connect motor mount to base.
-            linear_extrude(height=motor_mount_thickness)
-            barbell([wade_base_length/1.5-base_leadout,
-                wade_base_thickness/2],motor_hole(2),wade_base_thickness/2,
-                nema17_support_d/2,100,60);
+            /* linear_extrude(height=motor_mount_thickness) */
+            /*  barbell([wade_base_length/1.5-base_leadout, */
+            /*     wade_base_thickness/2],motor_hole(2),wade_base_thickness/2, */
+            /*     nema17_support_d/2,100,60); */
 
             render()
             difference(){
@@ -483,12 +483,15 @@ module wadeidler(){
 
     guide_height=0;
     guide_length=0;
+    idler_angle = 3;
 
+    rotate([0, 0, - idler_angle])
     difference(){
         union(){
             //The idler block.
             translate(idler_axis+[-idler_height/2+2,+idler_long_side/2-idler_long_bottom,0]){
-                cube([idler_height,idler_long_side,idler_short_side],center=true);
+                rotate([0, 0, idler_angle])
+                 cube([idler_height,idler_long_side,idler_short_side],center=true);
     
                 //Filament Guide.
                 translate([guide_height/2+idler_height/2-1,idler_long_side/2-guide_length/2,0])
@@ -500,7 +503,7 @@ module wadeidler(){
             rotate([0,0,-30]){
                 cylinder(h=idler_short_side,r=idler_hinge_r,center=true,$fn=60);
                 translate([-idler_end_length/2,0,0])
-                cube([idler_end_length,idler_hinge_r*2,idler_short_side],center=true);
+                 cube([idler_end_length,idler_hinge_r*2,idler_short_side],center=true);
             }       
         }
     
@@ -514,9 +517,16 @@ module wadeidler(){
 
 
         //Back of idler. Rueckseite glaetten
-        translate(idler_axis+[-idler_height/2+2-idler_height,
+        translate(idler_axis+[-idler_height/2+2-idler_height + 0.5,
             idler_long_side/2-idler_long_bottom-10,0])
-        cube([idler_height,idler_long_side,idler_short_side+2],center=true);
+        rotate([0, 0, idler_angle])
+           cube([idler_height,idler_long_side * 2,idler_short_side+2],center=true);
+
+        //Top of idler
+        translate(idler_axis+[idler_height/2,
+            idler_long_side-idler_long_bottom-10,0])
+        rotate([0, 0, 15])
+           cube([idler_height,idler_long_side * 2,idler_short_side+2],center=true);
 
         //Slot for idler fulcrum mount. Ausbruch Aufhaengung
         translate(idler_fulcrum){
@@ -533,7 +543,7 @@ module wadeidler(){
         //Bearing cutout. Kugelleager Aufhaengung
         translate(idler_axis){
             difference(){
-                cylinder(h=idler_608_height,r=idler_608_diameter/2,
+                # cylinder(h=idler_608_height,r=idler_608_diameter/2,
                     center=true,$fn=60);
                 for (i=[0,1])
                 rotate([180*i,0,0])

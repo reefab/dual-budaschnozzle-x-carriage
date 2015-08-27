@@ -38,13 +38,23 @@ if (draw_complete == 1) {
     rotate([0, 180, 0]) translate([0,0,42]) color(fanduct_color) cooling_duct();
 
     // extruders
-    translate([-6, hotends_spacing/2 + wade_block_depth/2 , mount_plate_thickness])
+    extruder_offset = -7.5;
+    translate([extruder_offset, hotends_spacing/2 + wade_block_depth/2 , mount_plate_thickness])
         rotate([90, 0, 0])
             color(extruder_color) wade(hotend_mount=groovemount, legacy_mount=false);
-    translate([-6, -hotends_spacing/2 - wade_block_depth/2 , mount_plate_thickness])
+    translate([extruder_offset, -hotends_spacing/2 - wade_block_depth/2 , mount_plate_thickness])
         rotate([90, 0, 0])
             mirror([0, 0, 1])
                 color(extruder_color) wade(hotend_mount=groovemount, legacy_mount=false);
+    // extruders idlers
+    translate([extruder_offset, hotends_spacing/2 + wade_block_depth/2 , mount_plate_thickness])
+        rotate([90, 0, 0])
+            color(extruder_color) wadeidler();
+    translate([extruder_offset, -hotends_spacing/2 - wade_block_depth/2 , mount_plate_thickness])
+        rotate([90, 0, 0])
+            mirror([0, 0, 1])
+                color(extruder_color) wadeidler();
+
 }
 
 

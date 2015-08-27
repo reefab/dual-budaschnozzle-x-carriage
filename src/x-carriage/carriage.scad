@@ -45,10 +45,10 @@ module simonkuehling_x_carriage()
 
         // Extruder Mounting Holes
         for (i=[-1,1]) {
-            translate([i*25, 0, body_wall_thickness*2]) nutcatch_parallel("M5", l=3);
-            translate([i*25, 0, 5]) hole_through("M5", l=5);
+            translate([i*25, 0, body_wall_thickness*2 + 1]) nutcatch_parallel("M5", l=4);
+            translate([i*25, 0, 5])  hole_through("M5", l=10);
             for (j=[-1, 1]) {
-                translate([i*25, j*hotends_spacing/2, 0]) cylinder(r=3.5,h=body_wall_thickness+2,$fs=1);
+                translate([i*25, j*hotends_spacing/2, -1]) cylinder(r=3.6,h=body_wall_thickness+3,$fs=1);
             }
         }
 
@@ -83,7 +83,7 @@ module simonkuehling_x_carriage()
                     rotate([90, 90, 0]) nutcatch_sidecut("M3", l=10);
                 translate([i*fan_hole_spacing/2, j*base_length/2 - 5, 3])
                     rotate([90,0,0])
-                      hole_through("M3", l=10);
+                       hole_through("M3", l=10);
             }
         }
 

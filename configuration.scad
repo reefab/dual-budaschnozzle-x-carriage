@@ -72,7 +72,7 @@ belt_loop_height = 18;
 // Extruder options
 
 //Set motor- and bolt-elevation for additional clearance when using e.g. 9/47 gears like in http://www.thingiverse.com/thing:11152
-elevation=10;
+elevation=7;
 
 //Set extra gear separation when using slightly bigger non-standard gears like 9/47 herringbone gears
 extra_gear_separation=2;
@@ -94,7 +94,7 @@ block_bevel_r=6;
 
 wade_base_thickness=7;
 wade_base_length=71;
-base_leadout=29.5;
+base_leadout=28;
 
 nema17_hole_spacing=1.2*25.4;
 nema17_width=1.7*25.4;
@@ -116,7 +116,7 @@ block_top_right=[wade_block_width,wade_block_height];
 layer_thickness=0.2;
 filament_feed_hole_d=3.5;
 filament_diameter=3;
-filament_feed_hole_offset=filament_diameter+1.5;
+filament_feed_hole_offset=filament_diameter;
 idler_nut_trap_depth=7.3;
 idler_nut_thickness=3.7;
 
