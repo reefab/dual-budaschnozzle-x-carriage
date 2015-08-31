@@ -9,7 +9,7 @@ module cooling_duct() {
             // front/back fans fascia
             for(i=[-1, 1]) {
                 translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) {
-                    translate([0, 0, -3.5]) cube([body_wall_thickness, 49, 47], center=true);
+                    translate([0, 0, -2.5]) cube([body_wall_thickness, 49, 45], center=true);
                     rotate([90, 0, -i*90]) quarter_sphere(18.5);
                 }
                 // baffle for the side fans
@@ -35,13 +35,14 @@ module cooling_duct() {
                  translate([i*23.5, j*18.5, 0.5]) quarter_pipe([16, 37, duct_height - body_wall_thickness], center=true, flip=i);
                  translate([i*23.5, j*40, 0.5]) rotate([j*90, 0, 0]) quarter_pipe([16, duct_height - body_wall_thickness, 10], center=true, flip=-i);
                  translate([i*17.5, j*29, duct_height/2 -2 ]) rotate([0,0,0]) cube([10, 32, 2], center=true);
-                 translate([i*12.5, i*0, duct_height/2 -2 ]) rotate([i*90, 0, 90]) quarter_pipe([25, 2, 11], center=true, flip=i);
-                 translate([i*0, i*8, duct_height/2 -2 ]) rotate([i*270, 0, 0]) quarter_pipe([14, 2, 10], center=true, flip=i);
+                 /* translate([i*12.5, i*0, duct_height/2 -2 ]) rotate([i*90, 0, 90]) quarter_pipe([25, 2, 11], center=true, flip=i); */
+                 /* translate([i*0, i*8, duct_height/2 -2 ]) rotate([i*270, 0, 0]) quarter_pipe([14, 2, 10], center=true, flip=i); */
+                 translate([0, 0, duct_height/2 -2 ]) cube([40, 26, 2], center=true);
             }
 
             // let's call them speed holes
             /* translate([i*26, i*-(base_length/4 + 6), 0]) cube([15, base_length/2 -25, duct_height + 1], center=true); */
-            translate([0, i*-(base_length/2 - body_wall_thickness), 0]) cube([20, 10, duct_height + 1], center=true);
+            /* # translate([0, i*-(base_length/2 - body_wall_thickness), 0]) cube([20, 10, duct_height + 1], center=true); */
             translate([0, 0, -5]) cube([30, 12, duct_height + 1], center=true);
 
 
@@ -66,6 +67,7 @@ module cooling_duct() {
             }
         }
     }
+    // nozzle airflow separators
     for(i=[-1,1]) {
         translate([0, i*hotends_spacing/2, duct_height/2 - 3])
             difference() {
@@ -78,6 +80,7 @@ module cooling_duct() {
                  translate([0,0, -7]) cylinder(d1=23, d2=18, h=15);
             }
     }
+    translate([0, 0, duct_height/2 -2 ]) rotate([0, 0, 50]) cube([38, 2, 2], center=true);
 
 }
 
