@@ -9,7 +9,7 @@ module cooling_duct() {
             // front/back fans fascia
             for(i=[-1, 1]) {
                 translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) {
-                    cube([body_wall_thickness, 40, 40], center=true);
+                    translate([0, 0, -3.5]) cube([body_wall_thickness, 49, 47], center=true);
                     rotate([90, 0, -i*90]) quarter_sphere(18.5);
                 }
                 // baffle for the side fans
@@ -35,8 +35,8 @@ module cooling_duct() {
                  translate([i*23.5, j*18.5, 0.5]) quarter_pipe([16, 37, duct_height - body_wall_thickness], center=true, flip=i);
                  translate([i*23.5, j*40, 0.5]) rotate([j*90, 0, 0]) quarter_pipe([16, duct_height - body_wall_thickness, 10], center=true, flip=-i);
                  translate([i*17.5, j*29, duct_height/2 -2 ]) rotate([0,0,0]) cube([10, 32, 2], center=true);
-                 translate([i*12.5, i*6.5, duct_height/2 -2 ]) rotate([0,0,0]) cube([35.5, 10, 2], center=true);
-                 translate([i*0, i*8, duct_height/2 -2 ]) rotate([0,0,0]) cube([10, 10, 2], center=true);
+                 translate([i*12.5, i*0, duct_height/2 -2 ]) rotate([i*90, 0, 90]) quarter_pipe([25, 2, 11], center=true, flip=i);
+                 translate([i*0, i*8, duct_height/2 -2 ]) rotate([i*270, 0, 0]) quarter_pipe([14, 2, 10], center=true, flip=i);
             }
 
             // let's call them speed holes
@@ -56,7 +56,7 @@ module cooling_duct() {
             for(j=[-1,1]) {
                 // front/back fan holes
                 translate([ i*(body_width/2 + rod_dist/2 - body_wall_thickness), j*fan_hole_spacing/2, duct_height/2 -3]) rotate([0, -90, 0]) {
-                    cylinder(d=2.7, h=15, center=true, $fn=10);
+                    cylinder(d=2.5, h=15, center=true, $fn=10);
                 }
                 // side fans holes
                 translate([i * fan_hole_spacing/2, j*(base_length/2 - body_wall_thickness) + 1.5, -duct_height/2 + 3]) rotate([0, 90, 90]) {
