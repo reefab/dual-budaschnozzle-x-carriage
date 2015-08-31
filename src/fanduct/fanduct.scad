@@ -1,6 +1,6 @@
 duct_height = 20;
 hole_x = 30;
-hole_y = 35;
+hole_y = 98;
 
 module cooling_duct() {
     difference() {
@@ -19,7 +19,8 @@ module cooling_duct() {
 
         for (i=[-1, 1]) {
             // hotend nozzle holes
-            translate([0, i*(hotends_spacing -8)/2, -5]) cube([hole_x, hole_y, duct_height+1], center=true);
+            /* translate([0, i*(hotends_spacing -8)/2, -5]) cube([hole_x, hole_y, duct_height+1], center=true); */
+            translate([0, 0, -5]) cube([hole_x, hole_y, duct_height+1], center=true);
 
             // fan holes
             translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) difference() {
@@ -40,10 +41,10 @@ module cooling_duct() {
                  translate([0, 0, duct_height/2 -2 ]) cube([40, 26, 2], center=true);
             }
 
-            // let's call them speed holes
+            // space for the hotend
             /* translate([i*26, i*-(base_length/4 + 6), 0]) cube([15, base_length/2 -25, duct_height + 1], center=true); */
             /* # translate([0, i*-(base_length/2 - body_wall_thickness), 0]) cube([20, 10, duct_height + 1], center=true); */
-            translate([0, 0, -5]) cube([30, 12, duct_height + 1], center=true);
+            /* # translate([0, 0, -5]) cube([30, 12, duct_height + 1], center=true); */
 
 
             // fanduct nozzle holes
