@@ -10,7 +10,10 @@ module cooling_duct() {
             // front/back fans fascia
             for(i=[-1, 1]) {
                 translate([i * (body_width/2 + rod_dist/2 -body_wall_thickness/2), 0, -duct_height/2]) {
-                    translate([i*body_wall_thickness/4, 0, -2.5]) cube([body_wall_thickness/2, 49, 45], center=true);
+                    translate([i*body_wall_thickness/4, 0, -2.5]) {
+                        cube([body_wall_thickness/2, 49, 45], center=true);
+                        translate([0, 0, -duct_height/2 + 5]) cube([body_wall_thickness/2, base_length, 16], center=true);
+                    }
                     rotate([90, 0, -i*90]) quarter_sphere(18.5);
                 }
             }
