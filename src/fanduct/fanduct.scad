@@ -36,7 +36,7 @@ module cooling_duct() {
             for(j=[-1,1]) {
                  translate([i*26, 0, 0.5]) quarter_pipe([17, base_length - body_wall_thickness - 17, duct_height - body_wall_thickness], center=true, flip=i);
                  translate([i*17.5, j*29, duct_height/2 -2 ]) rotate([0,0,0]) cube([10, 32, 2], center=true);
-                 translate([0, 0, duct_height/2 -2 ]) cube([40, 26, 2], center=true);
+                 translate([0, 0, duct_height/2 -2 ]) cube([40, 32, 2], center=true);
             }
 
 
@@ -71,15 +71,22 @@ module cooling_duct() {
             difference() {
                  union() {
                      cylinder(d1=25, d2=20, h=3);
-                     for(j=[30, 150, 210, 330]) {
-                          rotate(j) cube([1,18, 3]);
+                     for(j=[45, 135, 225, 315]) {
+                          rotate(j) cube([1,25, 3]);
                         }
                  }
                  translate([0,0, -7]) cylinder(d1=23, d2=18, h=15);
             }
     }
     // Middle airflow separator
-    translate([0, 0, duct_height/2 -2 ]) rotate([0, 0, 50]) cube([38, 2, 2], center=true);
+    translate([0, 0, duct_height/2 -2 ]) rotate([0, 0, 35]) cube([40, 2, 3], center=true);
+
+    // support columns for easier printing of the central bridges
+    for(i=[-1,1]) {
+        translate([0, i*9, duct_height/2 -2 ]) rotate([0, 0, 35]) cylinder(d=3, h=3, center=true, $fn=20);
+        for(j=[-hotends_spacing/2, 0, hotends_spacing/2])
+            translate([-i*17.5, j, duct_height/2 -2 ]) rotate([0, 0, 35]) cylinder(d=3, h=4, center=true, $fn=20);
+    }
 
     // front fans nut traps
     for(i=[-1,1]) {
