@@ -5,7 +5,8 @@
 // http://www.thingiverse.com/thing:6713
 
 /* include<configuration.scad> */
-include<jonaskuehling-default.scad>
+include <jonaskuehling-default.scad>
+use <../gear/80T_gt2.scad>
 
 // Define the hotend_mounting style you want by specifying hotend_mount=style1+style2 etc.
 malcolm_hotend_mount=1;
@@ -326,8 +327,8 @@ module block_holes(legacy_mount=false){
     translate(motor_mount_translation){
         translate([-gear_separation,0,0]){
             rotate([0,180,0])
-            translate([0,0,1])
-            % import("src/external_stl/biggearmod_fixed.stl");
+            translate([0,0,3])
+            % big_gear();
 
             // Open the top to remove overhangs and to provide access to the hobbing.
             /* translate([-wade_block_width+2,0,9.5]) */

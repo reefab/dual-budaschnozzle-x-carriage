@@ -72,7 +72,7 @@ belt_loop_height = 18;
 // Extruder options
 
 //Set motor- and bolt-elevation for additional clearance when using e.g. 9/47 gears like in http://www.thingiverse.com/thing:11152
-elevation=7;
+elevation=-5;
 
 //Set extra gear separation when using slightly bigger non-standard gears like 9/47 herringbone gears
 extra_gear_separation=2;
@@ -103,7 +103,7 @@ nema17_support_d=nema17_width-nema17_hole_spacing;
 screw_head_recess_diameter=7.2;
 screw_head_recess_depth=3;
 
-motor_mount_rotation=45;
+motor_mount_rotation=0;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
 
