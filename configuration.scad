@@ -72,7 +72,7 @@ belt_loop_height = 18;
 // Extruder options
 
 //Set motor- and bolt-elevation for additional clearance when using e.g. 9/47 gears like in http://www.thingiverse.com/thing:11152
-elevation=-5;
+elevation=0;
 
 //Set extra gear separation when using slightly bigger non-standard gears like 9/47 herringbone gears
 extra_gear_separation=2;
