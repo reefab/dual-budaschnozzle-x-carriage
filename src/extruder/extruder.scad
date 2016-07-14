@@ -388,7 +388,7 @@ module block_holes(legacy_mount=false){
         }
 %       translate([0,0,8])
         rotate([180, 0, 0])
-        % import("src/external_stl/smallgearmod_fixed.stl");
+        % import("src/external_stl/GT2_2mm-20T-OD12.22.stl");
     }
 
     // Idler mounting holes and nut traps.
