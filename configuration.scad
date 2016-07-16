@@ -122,7 +122,7 @@ idler_nut_thickness=3.7;
 
 gear_separation=7.4444+32.0111+0.25+extra_gear_separation;
 
-ptfe_tube_dia = 6;
+ptfe_tube_dia = 6.5;
 
 extruder_color = "SteelBlue";
 carriage_color = "DimGray";
