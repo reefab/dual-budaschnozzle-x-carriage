@@ -60,7 +60,7 @@ module belt_clamp()
         for(i=[-1,1])
             translate([i*belt_clamp_hole_separation/2,0,-1])
                 rotate(360/16)
-                cylinder(r=m3_diameter/2,h=belt_clamp_clamp_height+2,$fn=8);
+                cylinder(r=m3_diameter/2,h=belt_clamp_clamp_height+2,$fn=20);
 
         for(i=[-3:3])
             translate([-belt_width/2,-tooth_spacing/4+i*tooth_spacing,belt_clamp_clamp_height-tooth_height])

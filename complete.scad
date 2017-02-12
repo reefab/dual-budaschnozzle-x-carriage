@@ -63,8 +63,12 @@ if (draw_carriage == 1 && draw_complete == 0) {
 }
 
 if (draw_belt_clamps == 1 && draw_complete == 0) {
+    translate([-6, 0, 0]) difference() {
+        translate([0, 0, 1.5]) cube([10, 92.5, 3], center=true);
+        cylinder(d=5.2, h=4, $fn=20);
+    }
     for (i=[-1,1])
-        translate([0,i*(28),0])
+        translate([0,i*(48.5),0])
             belt_clamp();
 }
 
