@@ -1,6 +1,6 @@
 // Rendering options
-draw_complete = 1;
-draw_belt_clamps = 0;
+draw_complete = 0;
+draw_belt_clamps = 1;
 draw_cooling_duct = 0;
 draw_extruder= 0;
 draw_idler = 0;
