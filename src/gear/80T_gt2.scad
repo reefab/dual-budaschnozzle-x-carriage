@@ -35,9 +35,9 @@ m3_nut_flats = 5.7;	// normal M3 hex nut exact width = 5.5
 m3_nut_depth = 2.7;	// normal M3 hex nut exact depth = 2.4, nyloc = 4
 
 retainer = 1;		// Belt retainer above teeth, 0 = No, 1 = Yes
-retainer_ht = 2.0;	// height of retainer flange over pulley, standard = 1.5
+retainer_ht = 1.0;	// height of retainer flange over pulley, standard = 1.5
 idler = 1;			// Belt retainer below teeth, 0 = No, 1 = Yes
-idler_ht = 2.0;		// height of idler flange over pulley, standard = 1.5
+idler_ht = 1.0;		// height of idler flange over pulley, standard = 1.5
 
 pulley_t_ht = 7;	// length of toothed part of pulley, standard = 12
 pulley_b_ht = 1.5;		// pulley base height, standard = 8. Set to same as idler_ht if you want an idler but no pulley.
@@ -48,8 +48,8 @@ nut_shaft_distance = 1.2;	// distance between inner face of nut and shaft, can b
 
 // Wades style nut trap
 wades_biggear = 1;
-nut_trap_thickness = 6;
-m8_nut_diameter = 15.9;
+nut_trap_thickness = 3;
+m8_nut_diameter = 15.5;
 nut_trap_depth = 27;
 
 // Teardrop hole ring
@@ -143,28 +143,28 @@ module pulley( belt_type , pulley_OD , tooth_depth , tooth_width )
             
 			//base
             // COSMOS
-            intersection()
-            {
-            /* #translate([0,0,-21]) sphere(r=50); // Para 90T */
-            translate([0,0,-27]) sphere(r=50); // Para 86T
-            difference()
-                {
-                difference()
-                {
-                /* translate([0,0,10.3]) cylinder(r=30.4,h=10,$fn=100); // Para 90T */
-                translate([0,0,10.3]) cylinder(r=29.1,h=5,$fn=50); // Para 86T
-                    for(i=[0:16])
-                        {
-                        rotate((360/16)*i)
-                            /* translate([33,0,18]) // Para 90T */
-                            translate([32,0,16]) // Para 86T
-                                rotate([0,-20,0]) cylinder(r=5,h=15,center=true,$fn=50);
-                        }
-                }
-                /* translate([0,0,33]) sphere(r=28,$fn=100); // Para 90T */
-                translate([0,0,30]) sphere(r=29,$fn=50); // Para 86T
-                }
-            }
+            /* intersection() */
+            /* { */
+            /* /1* #translate([0,0,-21]) sphere(r=50); // Para 90T *1/ */
+            /* translate([0,0,-27]) sphere(r=50); // Para 86T */
+            /* difference() */
+            /*     { */
+            /*     difference() */
+            /*     { */
+            /*     /1* translate([0,0,10.3]) cylinder(r=30.4,h=10,$fn=100); // Para 90T *1/ */
+            /*     translate([0,0,10.3]) cylinder(r=29.1,h=5,$fn=50); // Para 86T */
+            /*         for(i=[0:16]) */
+            /*             { */
+            /*             rotate((360/16)*i) */
+            /*                 /1* translate([33,0,18]) // Para 90T *1/ */
+            /*                 translate([32,0,16]) // Para 86T */
+            /*                     rotate([0,-20,0]) cylinder(r=5,h=15,center=true,$fn=50); */
+            /*             } */
+            /*     } */
+            /*     /1* translate([0,0,33]) sphere(r=28,$fn=100); // Para 90T *1/ */
+            /*     translate([0,0,30]) sphere(r=29,$fn=50); // Para 86T */
+            /*     } */
+            /* } */
 			if ( pulley_b_ht < 2 ) { echo ("CAN'T DRAW PULLEY BASE, HEIGHT LESS THAN 2!!!"); } else {
 				rotate_extrude($fn=pulley_b_dia*2)
 				{
