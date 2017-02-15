@@ -1,8 +1,8 @@
 // Rendering options
-draw_complete = 0;
+draw_complete = 1;
 draw_belt_clamps = 0;
 draw_cooling_duct = 0;
-draw_extruder= 1;
+draw_extruder= 0;
 draw_idler = 0;
 draw_carriage = 0;
 
@@ -79,7 +79,7 @@ extra_gear_separation=0;
 
 // Nut wrench sizes ISO 4032
 m3_wrench = 5.5;
-m4_wrench = 7;
+m4_wrench = 6.8;
 
 // Adjust for deeper groove in hobbed bolt, so that idler is still vertical when tightened
 // Values like 0.5 to 1 should work, the more, the closer the idler will move to the bolt
@@ -104,7 +104,7 @@ screw_head_recess_diameter=7.2;
 screw_head_recess_depth=2;
 
 motor_mount_rotation=0;
-motor_mount_angle=20;
+motor_mount_angle=30;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=5;
 

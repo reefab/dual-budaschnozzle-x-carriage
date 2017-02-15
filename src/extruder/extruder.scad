@@ -159,9 +159,13 @@ module wade (hotend_mount=0,legacy_mount=false){
 
             // Filler between wade block and motor mount.
             translate([12,motor_mount_translation[1]-hole_for_608/2-elevation - 20,0])
-            cube([wade_block_width+extra_gear_separation + 3.5,
-                wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 16,
-                motor_mount_thickness]);
+            difference() {
+                cube([wade_block_width+extra_gear_separation + 4,
+                    wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 34,
+                    motor_mount_thickness]);
+                translate([0, 66, 0]) cylinder(d=29, h=motor_mount_thickness);
+            }
+
 
             // Connect block to top of motor mount.
             /* linear_extrude(height=motor_mount_thickness) */
@@ -229,7 +233,7 @@ module wade (hotend_mount=0,legacy_mount=false){
 
             translate(motor_mount_translation)
                 translate([-gear_separation,0,0])
-                    # motor_mount ();
+                     motor_mount ();
         }
 
         block_holes(legacy_mount=legacy_mount);
@@ -330,9 +334,11 @@ module block_holes(legacy_mount=false){
 
     translate(motor_mount_translation){
         translate([-gear_separation,0,0]){
-            rotate([0,180,0])
-            translate([0,0,3])
-            % big_gear();
+            translate([0,0,3]) {
+                rotate([0,180,0]) % big_gear();
+                translate(rotate_along_point(gear_separation, motor_mount_angle))
+                rotate([180, 0, 0]) % import("src/external_stl/GT2_2mm-20T-OD12.22.stl");
+            }
 
             // Open the top to remove overhangs and to provide access to the hobbing.
             /* translate([-wade_block_width+2,0,9.5]) */
@@ -345,6 +351,11 @@ module block_holes(legacy_mount=false){
             /*  cube([wade_block_width, */
             /*     wade_block_height-motor_mount_translation[1]+1, */
             /*     wade_block_depth]); */
+
+            // hole for motor and small gear
+            translate(rotate_along_point(gear_separation, motor_mount_angle)) {
+                cylinder(d=23, h=motor_mount_thickness);
+            }
         
             translate([0,0,-1])
             b608(h=9);
@@ -362,10 +373,13 @@ module block_holes(legacy_mount=false){
             cylinder(r=16/2,h=wade_block_depth-(8+layer_thickness)+2);  
 
             // Filament feed.
-            translate([-filament_feed_hole_offset,0,wade_block_depth/2])
-            rotate([90,0,0])
-            rotate(360/16)
-            cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=8);  
+            translate([-filament_feed_hole_offset,0,wade_block_depth/2]) {
+                // to check for structure clearance
+                /* % cube([120, 120, 10], center=true); */
+                rotate([90,0,0])
+                rotate(360/16)
+                cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=20);  
+            }
 
             // PTFE tube holder
             translate([-filament_feed_hole_offset, 21,wade_block_depth/2])
@@ -390,9 +404,6 @@ module block_holes(legacy_mount=false){
             }
 
         }
-%       translate([0,0,8])
-        rotate([180, 0, 0])
-        % import("src/external_stl/GT2_2mm-20T-OD12.22.stl");
     }
 
     // Idler mounting holes and nut traps.
