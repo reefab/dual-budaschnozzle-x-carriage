@@ -1,8 +1,8 @@
 // Rendering options
 draw_complete = 0;
-draw_belt_clamps = 1;
+draw_belt_clamps = 0;
 draw_cooling_duct = 0;
-draw_extruder= 0;
+draw_extruder= 1;
 draw_idler = 0;
 draw_carriage = 0;
 
@@ -75,7 +75,7 @@ belt_loop_height = 18;
 elevation=0;
 
 //Set extra gear separation when using slightly bigger non-standard gears like 9/47 herringbone gears
-extra_gear_separation=2;
+extra_gear_separation=0;
 
 // Nut wrench sizes ISO 4032
 m3_wrench = 5.5;
@@ -86,7 +86,7 @@ m4_wrench = 7;
 // Sometimes the idler will be slightly angled towards the bolt which causes the idler screws
 // to slip off the slots in die idler to the top.. Adjusting this should help:
 less_idler_bolt_dist = 0;
-wade_block_height=60+elevation;
+wade_block_height=55+elevation;
 wade_block_width=24;
 wade_block_depth=28;
 
@@ -101,11 +101,12 @@ nema17_width=1.7*25.4;
 nema17_support_d=nema17_width-nema17_hole_spacing;
 
 screw_head_recess_diameter=7.2;
-screw_head_recess_depth=3;
+screw_head_recess_depth=2;
 
 motor_mount_rotation=0;
+motor_mount_angle=20;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
-motor_mount_thickness=8;
+motor_mount_thickness=5;
 
 m8_clearance_hole=8.8;
 hole_for_608=22.6;

@@ -115,7 +115,7 @@ reprapfaborg_mount=512; // http://reprap-fab.org hotend with 10mm PEEK insulator
 
 //===================================================
 // Parameters defining the wade body:
-function motor_hole(hole)=[motor_mount_translation[0],motor_mount_translation[1]] +
+function motor_hole(hole)=rotate_along_point(gear_separation, motor_mount_angle) +
     rotated(45+motor_mount_rotation+hole*90)*nema17_hole_spacing/sqrt(2);
 
 // Parameters defining the idler.
@@ -164,8 +164,8 @@ module wade (hotend_mount=0,legacy_mount=false){
                 motor_mount_thickness]);
 
             // Connect block to top of motor mount.
-            linear_extrude(height=motor_mount_thickness)
-            barbell(block_top_right-[0,5],motor_hole(0),5,nema17_support_d/2,100,60);
+            /* linear_extrude(height=motor_mount_thickness) */
+            /* barbell(block_top_right-[0,5],motor_hole(0),5,nema17_support_d/2,100,60); */
 
             //Connect motor mount to base.
             /* linear_extrude(height=motor_mount_thickness) */
@@ -173,7 +173,7 @@ module wade (hotend_mount=0,legacy_mount=false){
             /*     wade_base_thickness/2],motor_hole(2),wade_base_thickness/2, */
             /*     nema17_support_d/2,100,60); */
 
-            render()
+            /* render() */
             difference(){
                 translate([-block_bevel_r,0,0])
                 cube([block_bevel_r*2+wade_block_width,
@@ -227,11 +227,15 @@ module wade (hotend_mount=0,legacy_mount=false){
             translate([-base_leadout,0,0])
             cube([wade_base_length,wade_base_thickness,wade_block_depth]);
 
-            motor_mount ();
+            translate(motor_mount_translation)
+                translate([-gear_separation,0,0])
+                    # motor_mount ();
         }
 
         block_holes(legacy_mount=legacy_mount);
-        motor_mount_holes ();
+            translate(motor_mount_translation)
+                translate([-gear_separation,0,0])
+                    motor_mount_holes ();
 
         translate([motor_mount_translation[0]-gear_separation-filament_feed_hole_offset,
             0,wade_block_depth/2])
@@ -634,6 +638,8 @@ sqrt((point1[0]-point2[0])*(point1[0]-point2[0])+
 function angle(a,b,c) = acos((a*a+b*b-c*c)/(2*a*b)); 
 
 function rotated(a)=[cos(a),sin(a),0];
+
+function rotate_along_point(distance, angle) = [distance* cos(angle),distance * sin(angle)];
 
 //========================================================
 // Modules for defining holes for hotend mounts:
