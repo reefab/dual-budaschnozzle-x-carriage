@@ -161,7 +161,7 @@ module wade (hotend_mount=0,legacy_mount=false){
             translate([12,motor_mount_translation[1]-hole_for_608/2-elevation - 20,0])
             difference() {
                 cube([wade_block_width+extra_gear_separation + 4,
-                    wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 34,
+                    wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 36,
                     motor_mount_thickness]);
                 translate([0, 66, 0]) cylinder(d=29, h=motor_mount_thickness);
             }
@@ -375,7 +375,7 @@ module block_holes(legacy_mount=false){
             // Filament feed.
             translate([-filament_feed_hole_offset,0,wade_block_depth/2]) {
                 // to check for structure clearance
-                /* % cube([120, 120, 10], center=true); */
+                % cube([120, 120, 10], center=true);
                 rotate([90,0,0])
                 rotate(360/16)
                 cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=20);  
