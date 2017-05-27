@@ -375,7 +375,7 @@ module block_holes(legacy_mount=false){
             // Filament feed.
             translate([-filament_feed_hole_offset,0,wade_block_depth/2]) {
                 // to check for structure clearance
-                % cube([120, 120, 10], center=true);
+                /* % cube([120, 120, 10], center=true); */
                 rotate([90,0,0])
                 rotate(360/16)
                 cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=20);  
@@ -466,28 +466,28 @@ module motor_mount_holes(){
     {
         translate([0,0,screw_head_recess_depth+layer_thickness])
         for (hole=[0:2]){
-            translate([motor_hole(hole)[0]-slot_left,motor_hole(hole)[1],0])
+            translate([motor_hole(hole)[0],motor_hole(hole)[1]-slot_left,0])
             cylinder(h=motor_mount_thickness-screw_head_recess_depth,r=radius,$fn=16);
-            translate([motor_hole(hole)[0]+slot_right,motor_hole(hole)[1],0])
+            translate([motor_hole(hole)[0], motor_hole(hole)[1]+slot_right, 0])
             cylinder(h=motor_mount_thickness-screw_head_recess_depth,r=radius,$fn=16);
 
-            translate([motor_hole(hole)[0]-slot_left,motor_hole(hole)[1]-radius,0])
-            cube([slot_left+slot_right,radius*2,motor_mount_thickness-screw_head_recess_depth]);
+            translate([motor_hole(hole)[0] -radius ,motor_hole(hole)[1] - radius + slot_left ,0])
+            cube([radius*2,slot_left+slot_right,motor_mount_thickness-screw_head_recess_depth]);
         }
 
         translate([0,0,-1])
         for (hole=[0:2]){
-            translate([motor_hole(hole)[0]-slot_left,motor_hole(hole)[1],0])
+            translate([motor_hole(hole)[0],motor_hole(hole)[1]-slot_left,0])
             cylinder(h=screw_head_recess_depth+1,
                 r=screw_head_recess_diameter/2,$fn=16);
-            translate([motor_hole(hole)[0]+slot_right,motor_hole(hole)[1],0])
+            translate([motor_hole(hole)[0],motor_hole(hole)[1]+slot_right,0])
             cylinder(h=screw_head_recess_depth+1,
                 r=screw_head_recess_diameter/2,$fn=16);
 
-            translate([motor_hole(hole)[0]-slot_left,
-                motor_hole(hole)[1]-screw_head_recess_diameter/2,0])
-            cube([slot_left+slot_right,
-                screw_head_recess_diameter,
+            # translate([motor_hole(hole)[0] - screw_head_recess_diameter/2,
+                motor_hole(hole)[1]-screw_head_recess_diameter/2 + slot_left * 2,0])
+            cube([screw_head_recess_diameter,
+                slot_left+slot_right,
                 screw_head_recess_depth+1]);
         }
     }

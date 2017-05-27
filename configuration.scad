@@ -106,7 +106,7 @@ screw_head_recess_depth=2;
 motor_mount_rotation=0;
 motor_mount_angle=35;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
-motor_mount_thickness=5;
+motor_mount_thickness=8;
 
 m8_clearance_hole=8.8;
 hole_for_608=22.6;
