@@ -23,7 +23,7 @@ module simonkuehling_x_carriage()
             // LM8UU Holders
             for(i=[-1,1]) {
                 for(j=[-1,1]) {
-                    translate([j*25,i*(base_length/2 - LM8UU_length/2 - body_wall_thickness), body_wall_thickness])
+                    translate([j*rod_dist/2,i*(base_length/2 - LM8UU_length/2 - body_wall_thickness), body_wall_thickness])
                         rotate([0,0,90]) LM8UU_holder();
                 }
             }

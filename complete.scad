@@ -22,7 +22,7 @@ if (draw_complete == 1) {
             rotate([0, 90, 90]) % fan(40,10.2);
     // Rods
     for (i=[-1,1])
-        translate([25* i, 0, -(LM8UU_dia/2+body_wall_thickness+4)])
+        translate([rod_dist / 2* i, 0, -(LM8UU_dia/2+body_wall_thickness+4)])
             rotate([90,0,0])
             % cylinder(h=base_length*2,r=4,$fs=1,center=true);
 
