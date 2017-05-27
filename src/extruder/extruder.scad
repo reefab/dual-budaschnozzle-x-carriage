@@ -158,7 +158,7 @@ module wade (hotend_mount=0,legacy_mount=false){
             cube([wade_block_width,wade_block_height,wade_block_depth]);
 
             // Filler between wade block and motor mount.
-            translate([12,motor_mount_translation[1]-hole_for_608/2-elevation - 20,0])
+            translate([12,motor_mount_translation[1]-hole_for_608/2-elevation - 17,0])
             difference() {
                 cube([wade_block_width+extra_gear_separation + 4,
                     wade_block_height-motor_mount_translation[1]+hole_for_608/2+elevation + 36,
@@ -232,13 +232,13 @@ module wade (hotend_mount=0,legacy_mount=false){
             cube([wade_base_length,wade_base_thickness,wade_block_depth]);
 
             translate(motor_mount_translation)
-                translate([-gear_separation,0,0])
+                translate([-gear_separation,3,0])
                      motor_mount ();
         }
 
         block_holes(legacy_mount=legacy_mount);
             translate(motor_mount_translation)
-                translate([-gear_separation,0,0])
+                translate([-gear_separation,3,0])
                     motor_mount_holes ();
 
         translate([motor_mount_translation[0]-gear_separation-filament_feed_hole_offset,
@@ -455,6 +455,10 @@ module motor_mount(){
             nema17_support_d/2,20,160);
         barbell (motor_hole(1),motor_hole(2),nema17_support_d/2,
             nema17_support_d/2,20,160);
+        barbell (motor_hole(2),motor_hole(3),nema17_support_d/2,
+            nema17_support_d/2,20,160);
+        barbell (motor_hole(3),motor_hole(4),nema17_support_d/2,
+            nema17_support_d/2,20,160);
     }
 }
 
@@ -465,7 +469,7 @@ module motor_mount_holes(){
 
     {
         translate([0,0,screw_head_recess_depth+layer_thickness])
-        for (hole=[0:2]){
+        for (hole=[0:3]){
             translate([motor_hole(hole)[0],motor_hole(hole)[1]-slot_left,0])
             cylinder(h=motor_mount_thickness-screw_head_recess_depth,r=radius,$fn=16);
             translate([motor_hole(hole)[0], motor_hole(hole)[1]+slot_right, 0])
@@ -476,7 +480,7 @@ module motor_mount_holes(){
         }
 
         translate([0,0,-1])
-        for (hole=[0:2]){
+        for (hole=[0:3]){
             translate([motor_hole(hole)[0],motor_hole(hole)[1]-slot_left,0])
             cylinder(h=screw_head_recess_depth+1,
                 r=screw_head_recess_diameter/2,$fn=16);
@@ -484,7 +488,7 @@ module motor_mount_holes(){
             cylinder(h=screw_head_recess_depth+1,
                 r=screw_head_recess_diameter/2,$fn=16);
 
-            # translate([motor_hole(hole)[0] - screw_head_recess_diameter/2,
+            translate([motor_hole(hole)[0] - screw_head_recess_diameter/2,
                 motor_hole(hole)[1]-screw_head_recess_diameter/2 + slot_left * 2,0])
             cube([screw_head_recess_diameter,
                 slot_left+slot_right,
