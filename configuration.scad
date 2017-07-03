@@ -107,6 +107,7 @@ motor_mount_rotation=0;
 motor_mount_angle=35;
 motor_mount_translation=[50.5+extra_gear_separation,34+elevation,0];
 motor_mount_thickness=8;
+motor_mount_adjust=5;
 
 m8_clearance_hole=8.8;
 hole_for_608=22.6;
@@ -117,7 +118,7 @@ block_top_right=[wade_block_width,wade_block_height];
 layer_thickness=0.2;
 filament_feed_hole_d=3.5;
 filament_diameter=3;
-filament_feed_hole_offset=filament_diameter;
+filament_feed_hole_offset=filament_diameter + 0.5;
 idler_nut_trap_depth=7.3;
 idler_nut_thickness=3.7;
 
