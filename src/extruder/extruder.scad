@@ -354,8 +354,9 @@ module block_holes(legacy_mount=false){
 
             // hole for motor and small gear
             translate(rotate_along_point(gear_separation, motor_mount_angle)) {
-                translate([-15/2, -15/2, 0]) roundrect([15, 20 + motor_mount_adjust * 2, motor_mount_thickness], 5);
-                /* cylinder(d=23, h=motor_mount_thickness); */
+                cylinder(d=23, h=motor_mount_thickness);
+                translate([-23/2, 0, 0]) cube([23, 11, motor_mount_thickness]);
+                translate([0, motor_mount_adjust * 2 + 2, 0]) cylinder(d=23, h=motor_mount_thickness);
             }
         
             translate([0,0,-1])
@@ -473,17 +474,6 @@ module roundrect(size, radius = 1) {
 
 module motor_mount(){
     translate([11.5,3, 0]) roundrect([nema17_width - 3, nema17_width + motor_mount_adjust, motor_mount_thickness], 2);
-
-    % linear_extrude(height=motor_mount_thickness){
-        barbell (motor_hole(0),motor_hole(1),nema17_support_d/2,
-            nema17_support_d/2,20,160);
-        barbell (motor_hole(1),motor_hole(2),nema17_support_d/2,
-            nema17_support_d/2,20,160);
-        barbell (motor_hole(2),motor_hole(3),nema17_support_d/2,
-            nema17_support_d/2,20,160);
-        barbell (motor_hole(3),motor_hole(4),nema17_support_d/2,
-            nema17_support_d/2,20,160);
-    }
 }
 
 module motor_mount_holes(){
