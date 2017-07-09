@@ -12,6 +12,7 @@ include <src/x-carriage/carriage.scad>
 include <src/x-carriage/belt_clamp.scad>
 include <src/fanduct/fanduct.scad>
 include <src/extruder/extruder.scad>
+include <src/extruder/bridge.scad>
 
 if (draw_complete == 1) {
     rotate([0, 180, 0]) color(carriage_color) simonkuehling_x_carriage();
@@ -56,29 +57,9 @@ if (draw_complete == 1) {
                 color(extruder_color) wadeidler();
 
     // Extruder bridge
-    translate([15, -35, 89.1]) link();
+    translate([15, -35, 89.1]) bridge();
 
 }
-
-module link() {
-    difference() {
-     union() {
-         cube([39, 70, 5]);
-         translate([0.7, 0, 3]) rotate([270, 0, 0]) cylinder(d=4, h=70, $fn=20);
-         translate([39, 0, 3]) rotate([270, 0, 0]) cylinder(d=4, h=70, $fn=20);
-         translate([-1.2, 0, 0]) cube([42.1, 70, 3]);
-    };
-    translate([3, -3, 0]) linear_extrude(height = 5) polygon([[0,10], [0, 65], [30, 10]]);
-    translate([36, 72, 0]) rotate([0, 0, 180]) linear_extrude(height = 5) polygon([[0,10], [0, 65], [30, 10]]);
-    translate([39/2 + 2, 70/2 - 1.2, 0]) {
-    for(i=[-1,1]) for(j=[-1,1]) {
-        translate([i*15.5, j*33, 0]) rotate([90, -90, 0]) nutcatch_sidecut("M3", l=5);
-        translate([i*15.5, j*33, 0]) rotate([90, -90, 0]) hole_through("M3", l=10);
-        }
-    }
-  }
-}
-
 
 if (draw_carriage == 1 && draw_complete == 0) {
     simonkuehling_x_carriage();
@@ -110,6 +91,11 @@ if (draw_idler == 1 && draw_complete == 0) {
         rotate([0,-90,0])
             wadeidler();
 }
+
+if (draw_bridge == 1 && draw_complete == 0) {
+    bridge();
+}
+
 
 
 

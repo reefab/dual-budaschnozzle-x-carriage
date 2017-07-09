@@ -5,6 +5,7 @@ draw_cooling_duct = 0;
 draw_extruder= 0;
 draw_idler = 0;
 draw_carriage = 0;
+draw_bridge = 0;
 
 variant=0; //0 for metric
 
