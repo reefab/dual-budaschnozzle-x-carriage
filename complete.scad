@@ -96,6 +96,11 @@ if (draw_bridge == 1 && draw_complete == 0) {
     bridge();
 }
 
+if (draw_numbers == 1 && draw_complete == 0) {
+    linear_extrude(1) text("1", size=8);
+    translate([10, 0, 0]) linear_extrude(1) text("2", size=8);
+}
+
 
 
 
