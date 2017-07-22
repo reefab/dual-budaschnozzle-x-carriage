@@ -1,4 +1,4 @@
-dual-budaschnozzle-x-carriage
+Dual-Budaschnozzle-X-Carriage
 =============================
 
 ![Assembled](pics/project.jpg)
@@ -8,16 +8,15 @@ A combination of X-carriage (black), extruders (blue), and fanduct/thermal shiel
 
 Made for Mendel-style horizontal X-axis printers. Has emplacements for four 40mm fans, two on the sides for cooling the buda's radiators and two for cooling the print.
 
-Requires two short nema17 steppers. Designed for 3mm filament but can be changed in the configuration. The beltclamps are designed for a gt2 belt.
+Requires two short (< 33mm tall) nema17 steppers. Designed for 3mm filament but can be changed in the configuration. The beltclamps are designed for a gt2 belt.
+
+Use timing belts instead of a big and small gear.
 
 ## Status
 
-Working, with small caveats. 
+Working.
 
- * The filament is a bit difficult to insert through the extruder.
- * The x-carriage doesn't render correctly in recent versions of openscad for some reasons. I had to use netfabb to repair it.
-
- Dozens and dozens of hours of printing have been achieved with this setup, here is some [print results](https://www.flickr.com/photos/reefab_projects/albums/72157651943218993).
+Hundreds of hours of printing have been achieved with this setup, here is some [print results](https://www.flickr.com/photos/reefab_projects/albums/72157651943218993).
 
 ## Instructions
 
@@ -29,6 +28,10 @@ Beyond the standard hardware you'll need:
  * Aluminum foil tape
  * a [Magic Eraser](https://en.wikipedia.org/wiki/Melamine_foam) (no, really)
  * Kapton tape
+ * 2x GT2 pulley 20 teeth, inner diameter 5mm
+ * 2x 200mm GT2x6mm belts
+
+As for the hobbed bar, I use two [Hyena v2.0](http://shop.arcol.hu/item/hyena).
 
 ### Print
     
@@ -36,10 +39,11 @@ Beyond the standard hardware you'll need:
  * Extruder bodies
  * Extruder idlers
  * Pair of belt clamps
- * Two pairs of gears (big and small)
+ * Two pairs of gears
  * Fan duct 
+ * Extruder bridge
 
- I printed everything in PLA at 40% infill expect for the fanduct that uses 10% infill (and benefit from being printed in ABS).
+ I printed everything in PLA at 40% infill except for the fanduct that uses 10% infill (and benefit from being printed in ABS).
 
 ### X-Carriage
 
@@ -72,7 +76,7 @@ Its purpose is also to prevent thermal radiation from the heating block transmit
 
 To achieve that, the hotend is almost completely enclosed.
 
-Of course, blocking the heat using the same plastic that the hotend is designed to melt is a bit difficult. To help with that, thermal insulation is required. The main component is [Melamine Foam](https://en.wikipedia.org/wiki/Melamine_foam), it has excellent insulation, will resists the usual temperatures without issues and can be bought in pretty much any supermarkets for a pitance. Ceramic wool might be a better choice, but to stay in the RepRap's spirit, I preferred using widely available materials.
+Of course, blocking the heat using the same plastic that the hotend is designed to melt is a bit difficult. To help with that, thermal insulation is required. The main component is [Melamine Foam](https://en.wikipedia.org/wiki/Melamine_foam), it has excellent insulation, will resists the usual temperatures without issues and can be bought in pretty much any supermarkets for a pittance. Ceramic wool might be a better choice, but to stay in the RepRap's spirit, I preferred using widely available materials.
 
  * On the top of the fanduct, insert 4 M3 nuts in the top nut catches and 4 in the bottom ones
  * Screw in the front and back fans
@@ -83,8 +87,6 @@ Of course, blocking the heat using the same plastic that the hotend is designed 
 ![Step 2](pics/fanduct_step2.jpg) Apply the foil tape to the inside well and poke holes in it, I used three layers
 ![Step 3](pics/fanduct_step3.jpg) Cut the Magic Eraser pad to fit inside the well and cut holes. You'll notice that it almost fill the inside of the well but don't worry, it compress very well.
 ![Step 4](pics/fanduct_step4.jpg) Put some kapton tape on top of the foam and cut holes
-
-*Caveat*: after dozens of hours of printing, this fanduct that I printed in PLA is slightly sagging just below the heating block. It doesn't seem to cause issues.
 
 ### Final assembly
 
@@ -100,6 +102,8 @@ Of course, blocking the heat using the same plastic that the hotend is designed 
  * Screw in the fans and the fan duct with M3 screws
 
 ![Assembled](pics/project.jpg)
+
+Optional: Glue the includer numbers onto the extruder idlers to identify them.
 
 
 ### Source
