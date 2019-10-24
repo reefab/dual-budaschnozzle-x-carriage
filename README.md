@@ -1,3 +1,5 @@
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+
 Dual-Budaschnozzle-X-Carriage
 =============================
 
@@ -104,7 +106,6 @@ Of course, blocking the heat using the same plastic that the hotend is designed 
 ![Assembled](pics/project.jpg)
 
 Optional: Glue the includer numbers onto the extruder idlers to identify them.
-
 
 ### Source
 
